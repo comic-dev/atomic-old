@@ -1,5 +1,6 @@
 import { Client, Collection, Intents } from "discord.js";
-import { Command, Event } from "../Interfaces/ClientInterfaces";
+import { CommandType } from "../Structures/Command";
+import { EventType } from "../Structures/Event";
 import { DotenvConfigOutput } from "dotenv";
 import consola, { Consola } from "consola";
 import { GlobSync } from "glob";
@@ -11,10 +12,10 @@ export class Atomic extends Client {
   public prefix: string;
   public PATHS: string[];
 
-  public commands: Collection<string, Command> = new Collection();
-  public aliases: Collection<string, Command> = new Collection();
+  public commands: Collection<string, CommandType> = new Collection();
+  public aliases: Collection<string, CommandType> = new Collection();
   public cooldowns: Collection<string, number> = new Collection();
-  public events: Collection<string, Event> = new Collection();
+  public events: Collection<string, EventType> = new Collection();
   public categories: Collection<string, String[]> = new Collection();
 
   public logger: Consola = consola;
@@ -39,9 +40,11 @@ export class Atomic extends Client {
   }
 
   async handler(paths: string[]) {
-    new GlobSync(join("**", paths[0], "**", "**.ts")).found.map(
-      async (dir: string) => {
-        const File: Command = await import(join(process.cwd(), dir));
+    new GlobSync(join("**", paths[0], "**", "**.ts")).found?.map(
+      async (f: string) => {
+        let File: CommandType = new (
+          await import(join(process.cwd(), f))
+        ).default();
         File?.aliases
           ? this.commands.set(File.name, File) &&
             File.aliases.map((a: string) => {
@@ -57,15 +60,19 @@ export class Atomic extends Client {
       }
     );
 
-    new GlobSync(join("**", paths[1], "**.ts")).found.map(async (f: string) => {
-      const File: Event = await import(join(process.cwd(), f));
-      this.on(File.name, File.run.bind(null, this));
-      this.events.set(File.name, File);
-      this.logger.log(
-        Chalk.bold(
-          `${Chalk.grey(`[Atomic]`)} Loaded event ${Chalk.cyan(File.name)}`
-        )
-      );
-    });
+    new GlobSync(join("**", paths[1], "**.ts")).found?.map(
+      async (f: string) => {
+        const File: EventType = new (
+          await import(join(process.cwd(), f))
+        ).default();
+        this.on(File.name, File.run.bind(null, this));
+        this.events.set(File.name, File);
+        this.logger.log(
+          Chalk.bold(
+            `${Chalk.grey(`[Atomic]`)} Loaded event ${Chalk.cyan(File.name)}`
+          )
+        );
+      }
+    );
   }
 }

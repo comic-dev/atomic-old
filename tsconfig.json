@@ -3,7 +3,9 @@
     "module": "CommonJS",
     "lib": ["ESNext"],
     "moduleResolution": "Node",
-    "target": "ES6",
+    "target": "ESNext",
     "esModuleInterop": true
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

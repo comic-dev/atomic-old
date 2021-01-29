@@ -1,4 +1,4 @@
-import { Atomic } from "../../Structures/Atomic";
+/*import { Atomic } from "../../Structures/Atomic";
 import { Run } from "../../Interfaces/ClientInterfaces";
 import { Message } from "discord.js";
 import { Embed } from "../../Structures/Embed";
@@ -15,3 +15,4 @@ export const run: Run = async (
     .setTitle("Atomic Help | Home")
     .setDescription("");
 };
+*/
