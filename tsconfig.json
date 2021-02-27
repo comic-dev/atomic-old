@@ -1,11 +1,22 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "lib": ["ESNext"],
-    "moduleResolution": "Node",
-    "target": "ESNext",
-    "esModuleInterop": true
+    "module": "commonjs",
+    "target": "es2017",
+    "noImplicitAny": false,
+    "sourceMap": true,
+    "outDir": "build",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "moduleResolution": "node"
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ],
 }
