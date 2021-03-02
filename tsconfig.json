@@ -6,6 +6,7 @@
     "sourceMap": true,
     "outDir": "build",
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "forceConsistentCasingInFileNames": true,

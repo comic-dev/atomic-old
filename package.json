@@ -18,9 +18,12 @@
   "dependencies": {
     "@commitlint/cli": "^11.0.0",
     "@typeit/discord": "^4.0.9",
+    "@types/common-tags": "^1.8.0",
     "@types/ms": "^0.7.31",
     "chalk": "^4.1.0",
+    "common-tags": "^1.8.0",
     "consola": "^2.15.0",
+    "discord-akairo": "^8.1.0",
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "firebase-helper": "^0.3.0",
