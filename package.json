@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/comic-dev/atomic#readme",
   "dependencies": {
-    "@commitlint/cli": "^11.0.0",
+    "@commitlint/cli": "^12.0.1",
     "@typeit/discord": "^4.0.9",
     "@types/common-tags": "^1.8.0",
     "@types/ms": "^0.7.31",
