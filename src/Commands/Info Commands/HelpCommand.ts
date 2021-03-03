@@ -19,10 +19,10 @@ export default class HelpCommand extends Command {
           id: "command",
           type: Argument.union("command", "commandAlias"),
           default: null,
-          match: "restContent",
+          match: "content",
         },
       ],
-      category: "Info",
+      category: "Information",
       cooldown: 3e3,
       clientPermissions: ["ADD_REACTIONS"],
     });
@@ -70,7 +70,7 @@ export default class HelpCommand extends Command {
       this.handler.categories.each(
         (c: Category<string, Command>, s: string) => {
           Commands.addField(
-            `${s} [${c.size}]`,
+            `❯ ${s} [${c.size}]`,
             `\`${c.map((c) => c.id).join("`, `")}\``
           );
         }
@@ -119,11 +119,16 @@ export default class HelpCommand extends Command {
             msg.edit(Search);
             SearchCollector = msg.channel.createMessageCollector(
               (m: Message, u: User) => {
-                return !m.author.bot && !u.bot;
+                return !m.author.bot && !u.bot && u.id === message.author.id;
               },
               { time: 3e5 }
             );
             SearchCollector.on("collect", (m: Message) => {
+              if (m.content.toLowerCase() === "cancel") {
+                message.channel.send(new MessageEmbed().setTitle("Cancelling"));
+                SearchCollector.stop();
+                return msg.edit(Home);
+              }
               let res: any =
                 this.handler.modules.filter((c) => {
                   return (
@@ -132,7 +137,7 @@ export default class HelpCommand extends Command {
                       .match(new RegExp(m.content.toLowerCase(), "g"))?.length >
                     0
                   );
-                }) &&
+                }) ||
                 this.handler.modules.filter((c) => {
                   return c.aliases.some((v) => {
                     return (
@@ -160,6 +165,7 @@ export default class HelpCommand extends Command {
                   stripIndents`
                 **\\>** Name: **${res.first().id}**
                 **\\>** Aliases: **${res.first().aliases.join("**, **")}**
+                **\\>** Category: **${res.first().categoryID}**
                 **\\>** Cooldown: **${ms(
                   res.first().cooldown ?? this.handler.defaultCooldown,
                   {
@@ -190,6 +196,7 @@ export default class HelpCommand extends Command {
           stripIndents`
       **\\>** Name: **${command.id}**
       **\\>** Aliases: **${command.aliases.join("**, **")}**
+      **\\>** Category: **${command.categoryID}**
       **\\>** Cooldown: **${ms(
         command.cooldown ?? this.handler.defaultCooldown,
         { long: true }

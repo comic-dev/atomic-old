@@ -6,7 +6,7 @@ export default class PingCommand extends Command {
     super("Ping", {
       description: "Displays the bot's ping in milliseconds",
       aliases: ["ping", "p", "pong"],
-      category: "Info",
+      category: "Information",
       cooldown: 3e3,
     });
   }
