@@ -56,6 +56,7 @@ export default class HelpCommand extends Command {
           },
         ])
         .setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
+        .setColor("RANDOM")
         .setFooter(
           `Requested by ${message.author.tag}`,
           message.author.displayAvatarURL({ dynamic: true })
@@ -66,7 +67,8 @@ export default class HelpCommand extends Command {
         .setTitle("Atomic Help | Commands")
         .setDescription(
           `View all commands and their categories below\nFor further info about a specific command, use \`${prefix}help <Command>\``
-        );
+        )
+        .setColor("RANDOM");
       this.handler.categories.each(
         (c: Category<string, Command>, s: string) => {
           Commands.addField(
@@ -78,11 +80,13 @@ export default class HelpCommand extends Command {
 
       const Search: MessageEmbed = new MessageEmbed()
         .setTitle("Atomic Help | Search")
-        .setDescription("Find commands or aliases by typing a query");
+        .setDescription("Find commands or aliases by typing a query")
+        .setColor("RANDOM");
 
       const Customs: MessageEmbed = new MessageEmbed()
         .setTitle("Under Construction")
-        .setDescription("This feature is currently still being developed.");
+        .setDescription("This feature is currently still being developed.")
+        .setColor("RANDOM");
 
       const msg: Message = await message.util.send(Home);
       try {
@@ -125,7 +129,9 @@ export default class HelpCommand extends Command {
             );
             SearchCollector.on("collect", (m: Message) => {
               if (m.content.toLowerCase() === "cancel") {
-                message.channel.send(new MessageEmbed().setTitle("Cancelling"));
+                message.channel.send(
+                  new MessageEmbed().setTitle("Cancelling").setColor("RANDOM")
+                );
                 SearchCollector.stop();
                 return msg.edit(Home);
               }
@@ -149,9 +155,9 @@ export default class HelpCommand extends Command {
                   });
                 });
 
-              const Result: MessageEmbed = new MessageEmbed().setTitle(
-                "Search Results"
-              );
+              const Result: MessageEmbed = new MessageEmbed()
+                .setTitle("Search Results")
+                .setColor("RANDOM");
               if (!res.first()) {
                 Result.setDescription("No commands or aliases have been found");
                 SearchCollector.stop();
@@ -204,6 +210,7 @@ export default class HelpCommand extends Command {
       **\\>** Description: **${command.description}**
       ${command.ownerOnly ? "**Developer Only!**" : ""}`
         )
+        .setColor("RANDOM")
         .setFooter(`Requested by: ${message.author.tag}`)
         .setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
         .setTimestamp();
