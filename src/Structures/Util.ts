@@ -19,9 +19,15 @@ export class Util {
     max: number = 10
   ): string {
     return str.length > max
-      ? `**${str.slice(0, max).join("**, **")}** and ${
-          str.length - max
-        } more...`
-      : `**${str.join(", ")}**`;
+      ? `${str.slice(0, max).join(", ")} and ${str.length - max} more...`
+      : `${str.join(", ")}`;
+  }
+
+  public static status(status: string): string {
+    if (status.length === 3) {
+      return `Do Not Disturb`;
+    } else {
+      return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+    }
   }
 }

@@ -11,7 +11,7 @@ import {
 import ms from "ms";
 export default class HelpCommand extends Command {
   public constructor() {
-    super("Help", {
+    super("help", {
       aliases: ["help", "h"],
       description: "Returns the Atomic help menu",
       args: [
@@ -23,7 +23,7 @@ export default class HelpCommand extends Command {
         },
       ],
       category: "Information",
-      cooldown: 3e3,
+      cooldown: 3000,
       clientPermissions: ["ADD_REACTIONS"],
     });
   }

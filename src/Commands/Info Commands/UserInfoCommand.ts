@@ -5,10 +5,11 @@ import ms from "ms";
 import { Util } from "../../Structures/Util";
 export default class UserInfoCommand extends Command {
   public constructor() {
-    super("User Info", {
+    super("userinfo", {
       aliases: ["userinfo", "ui", "user", "u"],
       description: "Displays specific information about a user",
       category: "Information",
+      cooldown: 3000,
       args: [
         {
           id: "member",
@@ -32,6 +33,7 @@ export default class UserInfoCommand extends Command {
       bot,
       flags,
       id,
+      presence,
     } = member.user;
     const {
       roles,
@@ -39,10 +41,11 @@ export default class UserInfoCommand extends Command {
       joinedAt,
       joinedTimestamp,
       premiumSince,
+      premiumSinceTimestamp,
       displayHexColor,
       displayName,
-      lastMessage,
     } = member;
+
     let Info: MessageEmbed = new MessageEmbed()
       .setTitle(`Info for ${username}`)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
@@ -62,7 +65,7 @@ export default class UserInfoCommand extends Command {
     **❯** Discriminator: ${discriminator}
     **❯** ID: ${id}
     **❯** Flags: ${
-      flags.toArray().length > 0
+      flags !== null && flags.toArray().length > 0
         ? Util.trim(Util.normalize(flags.toArray()))
         : "None"
     }
@@ -71,7 +74,11 @@ export default class UserInfoCommand extends Command {
       .replace(/\//g, "-")} (${ms(Date.now() - createdTimestamp, {
           long: true,
         })} ago)
-    **❯** Bot: ${bot ? "Yes" : "No"}`,
+    **❯** Bot: ${bot ? "Yes" : "No"}
+    **❯** Status: ${Util.status(presence.status)}
+    **❯** Game Playing: ${
+      presence.activities.length > 0 ? presence.activities[0].name : "None"
+    }`,
       },
       {
         name: "Member",
@@ -82,9 +89,18 @@ export default class UserInfoCommand extends Command {
           .replace(/\//g, "-")} (${ms(Date.now() - joinedTimestamp, {
           long: true,
         })} ago)
-        **❯** Permissions: ${Util.trim(
-          Util.normalize(permissions.toArray(true))
-        )}
+        **❯** Boosting Since: ${
+          premiumSince
+            ? new Intl.DateTimeFormat("en-US")
+                .format(premiumSinceTimestamp)
+                .replace(/\//g, "-")
+            : "Not Boosting"
+        }
+        **❯** Permissions: ${
+          permissions.toArray().length > 0
+            ? Util.trim(Util.normalize(permissions.toArray(true)))
+            : "None"
+        }
         **❯** Roles: ${Util.trim(
           Util.normalize(
             roles.cache

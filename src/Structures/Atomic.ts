@@ -18,8 +18,9 @@ export class Atomic extends AkairoClient {
     allowMention: true,
     handleEdits: true,
     commandUtil: true,
-    commandUtilLifetime: 3e5,
-    defaultCooldown: 3e3,
+    commandUtilLifetime: 300000,
+    defaultCooldown: 3000,
+    ignoreCooldown: [],
     argumentDefaults: {
       prompt: {
         modifyStart: (msg: Message, str: string): string => {
@@ -37,7 +38,6 @@ export class Atomic extends AkairoClient {
       },
       otherwise: "",
     },
-    ignoreCooldown: owner,
   });
 
   public constructor(config: Config) {
