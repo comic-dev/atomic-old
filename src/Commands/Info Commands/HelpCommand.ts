@@ -28,6 +28,8 @@ export default class HelpCommand extends Command {
     });
   }
 
+  *args() {}
+
   public async exec(
     message: Message,
     { command }: { command: Command | null }
@@ -136,7 +138,7 @@ export default class HelpCommand extends Command {
                 return msg.edit(Home);
               }
               let res: any =
-                this.handler.modules.filter((c) => {
+                this.handler.modules.filter((c: Command) => {
                   return (
                     c.id
                       .toLowerCase()

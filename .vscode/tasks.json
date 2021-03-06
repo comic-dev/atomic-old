@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "atomic: build bot",
+      "type": "shell",
+      "command": "tsc -p tsconfig.json",
+      "problemMatcher": []
+    },
+    {
+      "label": "atomic: run compiled",
+      "type": "shell",
+      "command": "node ./build/src/",
+      "dependsOn": ["atomic: build bot"]
+    },
+    {
+      "label": "atomic: build",
+      "group": "build",
+      "dependsOn": ["atomic: build bot", "atomic: run compiled"],
+      "problemMatcher": []
+    }
+  ]
+}

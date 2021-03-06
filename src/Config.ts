@@ -1,10 +1,16 @@
-import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
+import {
+  AkairoClient,
+  CommandHandler,
+  ListenerHandler,
+  InhibitorHandler,
+} from "discord-akairo";
 import { Message } from "discord.js";
 import { prefix } from "../config.json";
 declare module "discord-akairo" {
   interface AkairoClient {
     commandHandler: CommandHandler;
     listenerHandler: ListenerHandler;
+    inhibitorHandler: InhibitorHandler;
   }
 }
 

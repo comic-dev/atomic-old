@@ -1,0 +1,7 @@
+{
+  "typescript.format.enable": true,
+  "typescript.autoClosingTags": true,
+  "typescript.format.semicolons": "insert",
+  "files.autoSaveDelay": 1000,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

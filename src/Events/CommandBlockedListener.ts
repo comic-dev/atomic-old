@@ -24,6 +24,9 @@ export default class CommandBlockedListener extends Listener {
             }, 3000);
           });
         break;
+
+      case "dm":
+        return null;
     }
   }
 }

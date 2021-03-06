@@ -1,17 +1,25 @@
-import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
+import {
+  AkairoClient,
+  CommandHandler,
+  ListenerHandler,
+  InhibitorHandler,
+} from "discord-akairo";
+import { Message, Intents } from "discord.js";
 import { join } from "path";
 import { Config, Prefix } from "../Config";
-import { owner } from "../../config.json";
-import { Message } from "discord.js";
-import { Intents } from "discord.js";
+
 export class Atomic extends AkairoClient {
   public config: Config;
   public listenerHandler: ListenerHandler = new ListenerHandler(this, {
-    directory: join(process.cwd(), "src", "Events"),
+    directory: join(__dirname, "..", "Events"),
+  });
+
+  public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
+    directory: join(__dirname, "..", "Inhibitors"),
   });
 
   public commandHandler: CommandHandler = new CommandHandler(this, {
-    directory: join(process.cwd(), "src", "Commands"),
+    directory: join(__dirname, "..", "Commands"),
     prefix: (message: Message) => {
       return Prefix(message);
     },
