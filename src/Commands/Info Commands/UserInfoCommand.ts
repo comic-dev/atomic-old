@@ -1,5 +1,5 @@
 import { stripIndents } from "common-tags";
-import { Command } from "discord-akairo";
+import { Command, Argument } from "discord-akairo";
 import { GuildMember, Message, MessageEmbed } from "discord.js";
 import ms from "ms";
 import { Util } from "../../Structures/Util";
@@ -14,7 +14,7 @@ export default class UserInfoCommand extends Command {
         {
           id: "member",
           match: "content",
-          type: "member",
+          type: Argument.union("member", "relevant"),
           default: (msg: Message) => {
             return msg.member;
           },
