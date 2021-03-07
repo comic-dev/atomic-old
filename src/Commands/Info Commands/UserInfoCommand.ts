@@ -1,13 +1,23 @@
 import { stripIndents } from "common-tags";
-import { Command, Argument } from "discord-akairo";
-import { GuildMember, Message, MessageEmbed } from "discord.js";
+import { Argument } from "discord-akairo";
+import { Command } from "../../Structures/Command";
+import {
+  GuildMember,
+  Message,
+  MessageEmbed,
+  Util as DiscordUtil,
+} from "discord.js";
 import ms from "ms";
 import { Util } from "../../Structures/Util";
 export default class UserInfoCommand extends Command {
   public constructor() {
     super("userinfo", {
       aliases: ["userinfo", "ui", "user", "u"],
-      description: "Displays specific information about a user",
+      description: {
+        content: "Shows specific information about an guild member",
+        usage: "$userinfo [ member ]",
+        examples: ["$userinfo comic.#6949", "$userinfo 589390599740719105"],
+      },
       category: "Information",
       cooldown: 3000,
       args: [
@@ -24,6 +34,7 @@ export default class UserInfoCommand extends Command {
   }
 
   public async exec(message: Message, { member }: { member: GuildMember }) {
+    if (!member?.id) member = message.member;
     const {
       username,
       tag,
@@ -64,9 +75,9 @@ export default class UserInfoCommand extends Command {
     **❯** Tag: ${tag}
     **❯** Discriminator: ${discriminator}
     **❯** ID: ${id}
-    **❯** Flags: ${
+    **❯** Badges: ${
       flags !== null && flags.toArray().length > 0
-        ? Util.trim(Util.normalize(flags.toArray()))
+        ? Util.trim(Util.badges(flags.toArray()))
         : "None"
     }
     **❯** Account Created: ${new Intl.DateTimeFormat("en-US")
@@ -112,14 +123,24 @@ export default class UserInfoCommand extends Command {
               })
           )
         )}
-        **❯** Hoist Role: ${roles.cache
-          .sort((r, h) => {
-            return h.position - r.position;
-          })
-          .find((r) => {
-            return r.hoist;
-          })
-          .toString()}`,
+        **❯** Hoist Role: ${
+          roles.cache
+            .sort((r, h) => {
+              return h.position - r.position;
+            })
+            .find((r) => {
+              return r.hoist;
+            })?.id
+            ? roles.cache
+                .sort((r, h) => {
+                  return h.position - r.position;
+                })
+                .find((r) => {
+                  return r.hoist;
+                })
+                .toString()
+            : "None"
+        }`,
       }
     );
     message.channel.send(Info);

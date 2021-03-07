@@ -1,6 +1,8 @@
 import { stripIndents } from "common-tags";
-import { Category, PrefixSupplier, Command, Argument } from "discord-akairo";
+import { Category, PrefixSupplier, Argument } from "discord-akairo";
+import { Command } from "../../Structures/Command";
 import {
+  Collection,
   Message,
   MessageEmbed,
   MessageCollector,
@@ -13,7 +15,14 @@ export default class HelpCommand extends Command {
   public constructor() {
     super("help", {
       aliases: ["help", "h"],
-      description: "Returns the Atomic help menu",
+      description: {
+        content: "Sends the interactive help menu for Atomic",
+        usage: "$help [command]",
+        examples: ["$help", "$help p", "$help ping"],
+      },
+      category: "Information",
+      cooldown: 3000,
+      clientPermissions: ["ADD_REACTIONS"],
       args: [
         {
           id: "command",
@@ -22,13 +31,8 @@ export default class HelpCommand extends Command {
           match: "content",
         },
       ],
-      category: "Information",
-      cooldown: 3000,
-      clientPermissions: ["ADD_REACTIONS"],
     });
   }
-
-  *args() {}
 
   public async exec(
     message: Message,
@@ -137,7 +141,7 @@ export default class HelpCommand extends Command {
                 SearchCollector.stop();
                 return msg.edit(Home);
               }
-              let res: any =
+              let res: Collection<string, Command> =
                 this.handler.modules.filter((c: Command) => {
                   return (
                     c.id
@@ -171,16 +175,20 @@ export default class HelpCommand extends Command {
                 Result.addField(
                   res.first().id,
                   stripIndents`
-                **\\>** Name: **${res.first().id}**
-                **\\>** Aliases: **${res.first().aliases.join("**, **")}**
-                **\\>** Category: **${res.first().categoryID}**
-                **\\>** Cooldown: **${ms(
+                **\\>** Name: ${res.first().id}
+                **\\>** Aliases: ${res.first().aliases.join("**, **")}
+                **\\>** Category: ${res.first().categoryID}
+                **\\>** Description: ${res.first().description.content}
+                **\\>** Cooldown: ${ms(
                   res.first().cooldown ?? this.handler.defaultCooldown,
                   {
                     long: true,
                   }
-                )}**
-                **\\>** Description: **${res.first().description}**
+                )}
+                **\\>** Usage: ${res.first().description.usage}
+                **\\>** Examples: \n${res
+                  .first()
+                  .description.examples.join("\n")}
                 ${res.first().ownerOnly ? "**Developer Only!**" : ""}`
                 ).setThumbnail(
                   message.author.displayAvatarURL({ dynamic: true })
@@ -202,14 +210,14 @@ export default class HelpCommand extends Command {
         .addField(
           command.id,
           stripIndents`
-      **\\>** Name: **${command.id}**
-      **\\>** Aliases: **${command.aliases.join("**, **")}**
-      **\\>** Category: **${command.categoryID}**
-      **\\>** Cooldown: **${ms(
-        command.cooldown ?? this.handler.defaultCooldown,
-        { long: true }
-      )}**
-      **\\>** Description: **${command.description}**
+      **\\>** Name: ${command.id}
+      **\\>** Aliases: ${command.aliases.join("**, **")}
+      **\\>** Category: ${command.categoryID}
+      **\\>** Description: ${command.description.content}
+      **\\>** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
+        long: true,
+      })}
+      **\\>** Examples: \n${command.description.examples.join("\n")}
       ${command.ownerOnly ? "**Developer Only!**" : ""}`
         )
         .setColor("RANDOM")

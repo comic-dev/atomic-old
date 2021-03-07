@@ -1,17 +1,24 @@
-import { Command } from "discord-akairo";
-import { Message, MessageEmbed, Collection } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
+import { Command } from "../../Structures/Command";
 import { stripIndents } from "common-tags";
 export default class PingCommand extends Command {
   public constructor() {
     super("ping", {
-      description: "Displays the bot's ping in milliseconds",
       aliases: ["ping", "p", "pong"],
       category: "Information",
+      description: {
+        content: "Displays the bot's ping in milliseconds",
+        usage: "$ping",
+        examples: ["$ping"],
+      },
       cooldown: 3000,
     });
   }
 
   public async exec(message: Message): Promise<void> {
+    message.util.send(
+      message.guild.emojis.cache.map((g) => `\\${g.toString()}`)
+    );
     const msg: Message = await message.util.send("Pinging...");
 
     await msg.edit("", {

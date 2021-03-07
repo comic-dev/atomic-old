@@ -62,6 +62,7 @@ export class Atomic extends AkairoClient {
 
   private async _init(): Promise<void> {
     this.commandHandler.useListenerHandler(this.listenerHandler);
+    this.commandHandler.useInhibitorHandler(this.inhibitorHandler);
     this.listenerHandler.setEmitters({
       commandHandler: this.commandHandler,
       listenerHandler: this.listenerHandler,
