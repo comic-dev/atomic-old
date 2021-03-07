@@ -176,7 +176,7 @@ export default class HelpCommand extends Command {
                   res.first().id,
                   stripIndents`
                 **\\>** Name: ${res.first().id}
-                **\\>** Aliases: ${res.first().aliases.join("**, **")}
+                **\\>** Aliases: ${res.first().aliases.join(", ")}
                 **\\>** Category: ${res.first().categoryID}
                 **\\>** Description: ${res.first().description.content}
                 **\\>** Cooldown: ${ms(
@@ -211,7 +211,7 @@ export default class HelpCommand extends Command {
           command.id,
           stripIndents`
       **\\>** Name: ${command.id}
-      **\\>** Aliases: ${command.aliases.join("**, **")}
+      **\\>** Aliases: ${command.aliases.join(", ")}
       **\\>** Category: ${command.categoryID}
       **\\>** Description: ${command.description.content}
       **\\>** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {

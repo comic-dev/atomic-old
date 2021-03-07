@@ -16,9 +16,6 @@ export default class PingCommand extends Command {
   }
 
   public async exec(message: Message): Promise<void> {
-    message.util.send(
-      message.guild.emojis.cache.map((g) => `\\${g.toString()}`)
-    );
     const msg: Message = await message.util.send("Pinging...");
 
     await msg.edit("", {
