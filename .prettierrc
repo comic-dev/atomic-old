@@ -1,0 +1,6 @@
+{
+  "trailingComma": "none",
+  "singleQuote": false,
+  "useTabs": false,
+  "parser": "typescript"
+}

@@ -1,6 +1,5 @@
 import { Message, MessageEmbed } from "discord.js";
 import { Command } from "../../Structures/Command";
-import { stripIndents } from "common-tags";
 export default class PingCommand extends Command {
   public constructor() {
     super("ping", {
@@ -9,9 +8,9 @@ export default class PingCommand extends Command {
       description: {
         content: "Displays the bot's ping in milliseconds",
         usage: "$ping",
-        examples: ["$ping"],
+        examples: ["$ping"]
       },
-      cooldown: 3000,
+      cooldown: 3000
     });
   }
 
@@ -21,16 +20,16 @@ export default class PingCommand extends Command {
     await msg.edit("", {
       embed: new MessageEmbed({
         title: "Pong!",
-        description: stripIndents`<a:loading:768509189517344788> Message Ping: **${Math.floor(
+        description: `<a:loading:768509189517344788> Message Ping: **${Math.floor(
           msg.createdTimestamp - message.createdTimestamp
         )}** ms
         <a:loading:768509189517344788> API Ping: **${Math.round(
           this.client.ws.ping
-        )}** ms`,
+        )}** ms`.trim()
       }).setFooter(
         message.author.tag,
         message.author.displayAvatarURL({ dynamic: true })
-      ),
+      )
     });
   }
 }

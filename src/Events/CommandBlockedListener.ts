@@ -5,7 +5,7 @@ export default class CommandBlockedListener extends Listener {
     super("commandBlocked", {
       event: "commandBlocked",
       emitter: "commandHandler",
-      category: "commandHandler",
+      category: "commandHandler"
     });
   }
 
@@ -25,8 +25,8 @@ export default class CommandBlockedListener extends Listener {
           });
         break;
 
-      case "dm":
-        return null;
+      default:
+        break;
     }
   }
 }

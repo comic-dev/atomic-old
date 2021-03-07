@@ -8,7 +8,7 @@ import {
   MessageCollector,
   ReactionCollector,
   MessageReaction,
-  User,
+  User
 } from "discord.js";
 import ms from "ms";
 export default class HelpCommand extends Command {
@@ -18,7 +18,7 @@ export default class HelpCommand extends Command {
       description: {
         content: "Sends the interactive help menu for Atomic",
         usage: "$help [command]",
-        examples: ["$help", "$help p", "$help ping"],
+        examples: ["$help", "$help p", "$help ping"]
       },
       category: "Information",
       cooldown: 3000,
@@ -28,9 +28,9 @@ export default class HelpCommand extends Command {
           id: "command",
           type: Argument.union("command", "commandAlias"),
           default: null,
-          match: "content",
-        },
-      ],
+          match: "content"
+        }
+      ]
     });
   }
 
@@ -46,20 +46,20 @@ export default class HelpCommand extends Command {
         .addFields([
           {
             name: "🏠 | Home",
-            value: "Returns to this page",
+            value: "Returns to this page"
           },
           {
             name: "📚 | Commands",
-            value: "Shows all categories along with their commands",
+            value: "Shows all categories along with their commands"
           },
           {
             name: "🔎 | Search",
-            value: "Search for any command or alias",
+            value: "Search for any command or alias"
           },
           {
             name: "🔧 | Customs",
-            value: "Show all custom commands for this guild",
-          },
+            value: "Show all custom commands for this guild"
+          }
         ])
         .setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
         .setColor("RANDOM")
@@ -182,7 +182,7 @@ export default class HelpCommand extends Command {
                 **\\>** Cooldown: ${ms(
                   res.first().cooldown ?? this.handler.defaultCooldown,
                   {
-                    long: true,
+                    long: true
                   }
                 )}
                 **\\>** Usage: ${res.first().description.usage}
@@ -215,7 +215,7 @@ export default class HelpCommand extends Command {
       **\\>** Category: ${command.categoryID}
       **\\>** Description: ${command.description.content}
       **\\>** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
-        long: true,
+        long: true
       })}
       **\\>** Examples: \n${command.description.examples.join("\n")}
       ${command.ownerOnly ? "**Developer Only!**" : ""}`

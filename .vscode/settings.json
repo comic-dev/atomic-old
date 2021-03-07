@@ -3,5 +3,9 @@
   "typescript.autoClosingTags": true,
   "typescript.format.semicolons": "insert",
   "files.autoSaveDelay": 1000,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  }
 }

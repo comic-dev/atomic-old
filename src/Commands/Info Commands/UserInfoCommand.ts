@@ -5,7 +5,7 @@ import {
   GuildMember,
   Message,
   MessageEmbed,
-  Util as DiscordUtil,
+  Util as DiscordUtil
 } from "discord.js";
 import ms from "ms";
 import { Util } from "../../Structures/Util";
@@ -16,7 +16,7 @@ export default class UserInfoCommand extends Command {
       description: {
         content: "Shows specific information about an guild member",
         usage: "$userinfo [ member ]",
-        examples: ["$userinfo comic.#6949", "$userinfo 589390599740719105"],
+        examples: ["$userinfo comic.#6949", "$userinfo 589390599740719105"]
       },
       category: "Information",
       cooldown: 3000,
@@ -27,9 +27,9 @@ export default class UserInfoCommand extends Command {
           type: Argument.union("member", "relevant"),
           default: (msg: Message) => {
             return msg.member;
-          },
-        },
-      ],
+          }
+        }
+      ]
     });
   }
 
@@ -44,7 +44,7 @@ export default class UserInfoCommand extends Command {
       bot,
       flags,
       id,
-      presence,
+      presence
     } = member.user;
     const {
       roles,
@@ -54,10 +54,10 @@ export default class UserInfoCommand extends Command {
       premiumSince,
       premiumSinceTimestamp,
       displayHexColor,
-      displayName,
+      displayName
     } = member;
 
-    let Info: MessageEmbed = new MessageEmbed()
+    const Info: MessageEmbed = new MessageEmbed()
       .setTitle(`Info for ${username}`)
       .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .setColor(displayHexColor)
@@ -83,13 +83,13 @@ export default class UserInfoCommand extends Command {
     **❯** Account Created: ${new Intl.DateTimeFormat("en-US")
       .format(createdAt)
       .replace(/\//g, "-")} (${ms(Date.now() - createdTimestamp, {
-          long: true,
+          long: true
         })} ago)
     **❯** Bot: ${bot ? "Yes" : "No"}
     **❯** Status: ${Util.status(presence.status)}
     **❯** Game Playing: ${
       presence.activities.length > 0 ? presence.activities[0].name : "None"
-    }`,
+    }`
       },
       {
         name: "Member",
@@ -98,7 +98,7 @@ export default class UserInfoCommand extends Command {
         **❯** Joined: ${new Intl.DateTimeFormat("en-US")
           .format(joinedAt)
           .replace(/\//g, "-")} (${ms(Date.now() - joinedTimestamp, {
-          long: true,
+          long: true
         })} ago)
         **❯** Boosting Since: ${
           premiumSince
@@ -140,7 +140,7 @@ export default class UserInfoCommand extends Command {
                 })
                 .toString()
             : "None"
-        }`,
+        }`
       }
     );
     message.channel.send(Info);

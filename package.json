@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "build/src/index.js",
-  "type": "commonjs",
   "scripts": {
     "lint": "npx prettier --write .",
     "start": "npx ts-node-dev src/ "
