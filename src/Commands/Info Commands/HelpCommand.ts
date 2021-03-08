@@ -175,20 +175,18 @@ export default class HelpCommand extends Command {
                 Result.addField(
                   res.first().id,
                   stripIndents`
-                **\\>** Name: ${res.first().id}
-                **\\>** Aliases: ${res.first().aliases.join(", ")}
-                **\\>** Category: ${res.first().categoryID}
-                **\\>** Description: ${res.first().description.content}
-                **\\>** Cooldown: ${ms(
+                **❯** Name: ${res.first().id}
+                **❯** Aliases: ${res.first().aliases.join(", ")}
+                **❯** Category: ${res.first().categoryID}
+                **❯** Description: ${res.first().description.content}
+                **❯** Cooldown: ${ms(
                   res.first().cooldown ?? this.handler.defaultCooldown,
                   {
                     long: true
                   }
                 )}
-                **\\>** Usage: ${res.first().description.usage}
-                **\\>** Examples: \n${res
-                  .first()
-                  .description.examples.join("\n")}
+                **❯** Usage: ${res.first().description.usage}
+                **❯** Examples: \n${res.first().description.examples.join("\n")}
                 ${res.first().ownerOnly ? "**Developer Only!**" : ""}`
                 ).setThumbnail(
                   message.author.displayAvatarURL({ dynamic: true })
@@ -210,13 +208,14 @@ export default class HelpCommand extends Command {
         .addField(
           command.id,
           stripIndents`
-      **\\>** Name: ${command.id}
-      **\\>** Aliases: ${command.aliases.join(", ")}
-      **\\>** Category: ${command.categoryID}
-      **\\>** Description: ${command.description.content}
-      **\\>** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
+      **** Name: ${command.id}
+      **** Aliases: ${command.aliases.join(", ")}
+      **** Category: ${command.categoryID}
+      **** Description: ${command.description.content}
+      **** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
         long: true
       })}
+      **** Usage: ${command.description.usage}
       **\\>** Examples: \n${command.description.examples.join("\n")}
       ${command.ownerOnly ? "**Developer Only!**" : ""}`
         )
