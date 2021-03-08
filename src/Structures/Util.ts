@@ -11,7 +11,7 @@ enum Badges {
   PARTNER = "<:bpartner:818083760435232788>",
   VERIFIEDDEV = "<:bverifieddev:818083760440082432>",
   STAFF = "<:bstaff:818083760499064872>",
-  VERIFIEDBOT = "<:bverifiedbot:818083760645734430>",
+  VERIFIEDBOT = "<:bverifiedbot:818083760645734430>"
 }
 
 export class Util {
@@ -46,53 +46,52 @@ export class Util {
   }
 
   public static badges(str: string[]): string[] {
-    return str.map((v) => {
-      switch (v) {
-        case "DISCORD_EMPLOYEE":
-          return Badges.STAFF;
+    return str
+      .map((v) => {
+        switch (v) {
+          case "DISCORD_EMPLOYEE":
+            return Badges.STAFF;
 
-        case "PARTNERED_SERVER_OWNER":
-          return Badges.PARTNER;
+          case "PARTNERED_SERVER_OWNER":
+            return Badges.PARTNER;
 
-        case "DISCORD_PARTNER":
-          return Badges.PARTNER;
+          case "DISCORD_PARTNER":
+            return Badges.PARTNER;
 
-        case "HYPESQUAD_EVENTS":
-          return Badges.EVENTS;
+          case "HYPESQUAD_EVENTS":
+            return Badges.EVENTS;
 
-        case "BUGHUNTER_LEVEL_1":
-          return Badges.BUGHUNTER;
+          case "BUGHUNTER_LEVEL_1":
+            return Badges.BUGHUNTER;
 
-        case "HOUSE_BRAVERY":
-          return Badges.BRAVERY;
+          case "HOUSE_BRAVERY":
+            return Badges.BRAVERY;
 
-        case "HOUSE_BRILLIANCE":
-          return Badges.BRILLIANCE;
+          case "HOUSE_BRILLIANCE":
+            return Badges.BRILLIANCE;
 
-        case "HOUSE_BALANCE":
-          return Badges.BRILLIANCE;
+          case "HOUSE_BALANCE":
+            return Badges.BRILLIANCE;
 
-        case "EARLY_SUPPORTER":
-          return Badges.EARLY;
+          case "EARLY_SUPPORTER":
+            return Badges.EARLY;
 
-        case "TEAM_USER":
-          return Badges.STAFF;
+          case "TEAM_USER":
+            return Badges.STAFF;
 
-        case "SYSTEM":
-          return "System";
+          case "SYSTEM":
+            return "System";
 
-        case "BUGHUNTER_LEVEL_2":
-          return Badges.GOLDENBUG;
+          case "BUGHUNTER_LEVEL_2":
+            return Badges.GOLDENBUG;
 
-        case "VERIFIED_BOT":
-          return Badges.VERIFIEDBOT;
+          case "VERIFIED_BOT":
+            return Badges.VERIFIEDBOT;
 
-        case "EARLY_VERIFIED_DEVELOPER":
-          return Badges.VERIFIEDDEV;
-
-        case "VERIFIED_DEVELOPER":
-          return Badges.VERIFIEDDEV;
-      }
-    });
+          case "VERIFIED_DEVELOPER":
+            return Badges.VERIFIEDDEV;
+        }
+      })
+      .filter((v) => !!v);
   }
 }

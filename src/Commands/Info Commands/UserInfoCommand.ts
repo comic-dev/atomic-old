@@ -34,7 +34,6 @@ export default class UserInfoCommand extends Command {
   }
 
   public async exec(message: Message, { member }: { member: GuildMember }) {
-    if (!member?.id) member = message.member;
     const {
       username,
       tag,
@@ -77,7 +76,7 @@ export default class UserInfoCommand extends Command {
     **❯** ID: ${id}
     **❯** Badges: ${
       flags !== null && flags.toArray().length > 0
-        ? Util.trim(Util.badges(flags.toArray()))
+        ? Util.badges(flags.toArray())
         : "None"
     }
     **❯** Account Created: ${new Intl.DateTimeFormat("en-US")
