@@ -14,7 +14,7 @@ enum Badges {
   VERIFIEDBOT = "<:bverifiedbot:818083760645734430>"
 }
 
-export class Util {
+export abstract class Util {
   public static normalize(str: string[]): string[] {
     return str.map((s) => {
       return s.includes("_")

@@ -122,24 +122,7 @@ export default class UserInfoCommand extends Command {
               })
           )
         )}
-        **❯** Hoist Role: ${
-          roles.cache
-            .sort((r, h) => {
-              return h.position - r.position;
-            })
-            .find((r) => {
-              return r.hoist;
-            })?.id
-            ? roles.cache
-                .sort((r, h) => {
-                  return h.position - r.position;
-                })
-                .find((r) => {
-                  return r.hoist;
-                })
-                .toString()
-            : "None"
-        }`
+        **❯** Hoist Role: ${roles.hoist ?? "None"}`
       }
     );
     message.channel.send(Info);
