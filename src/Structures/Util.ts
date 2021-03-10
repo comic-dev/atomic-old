@@ -45,6 +45,19 @@ export abstract class Util {
     }
   }
 
+  public static capitalize(str: string): string {
+    if (str.includes(" ")) {
+      return str
+        .split(" ")
+        .map((v) => {
+          v.charAt(0).toUpperCase() + v.slice(1).toLowerCase();
+        })
+        .join(" ");
+    } else {
+      return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    }
+  }
+
   public static badges(str: string[]): string[] {
     return str
       .map((v) => {
