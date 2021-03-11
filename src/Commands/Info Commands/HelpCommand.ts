@@ -170,7 +170,7 @@ export default class HelpCommand extends Command {
                 msg.edit(Result);
                 return m.delete();
               }
-              if (Object.keys(res.first())?.includes("category")) {
+              if (res.first()) {
                 Result.setDescription("Found an Command");
                 Result.addField(
                   res.first().id,
