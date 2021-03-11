@@ -16,7 +16,7 @@
     {
       "label": "atomic: build",
       "group": "build",
-      "dependsOn": ["atomic: build bot", "atomic: run compiled"],
+      "dependsOn": ["atomic: build bot", "atomic: run compiled"], 
       "problemMatcher": []
     }
   ]
