@@ -31,6 +31,7 @@ export default class PingCommand extends Command {
           `Requested by: ${message.author.tag}`,
           message.author.displayAvatarURL({ dynamic: true })
         )
+        .setTimestamp()
         .setColor("RANDOM")
     });
   }
