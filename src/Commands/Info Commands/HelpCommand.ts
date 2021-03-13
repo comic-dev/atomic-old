@@ -193,6 +193,10 @@ export default class HelpCommand extends Command {
                 );
               }
               msg.edit(Result);
+              SearchCollector.stop();
+            });
+            SearchCollector.on("end", () => {
+              msg.edit(Home);
             });
             break;
 
