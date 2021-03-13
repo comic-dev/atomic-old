@@ -17,7 +17,7 @@ export default class HelpCommand extends Command {
       aliases: ["help", "h"],
       description: {
         content: "Sends the interactive help menu for Atomic",
-        usage: "$help [command]",
+        usage: "$help [ command ]",
         examples: ["$help", "$help p", "$help ping"]
       },
       category: "Information",
@@ -129,9 +129,9 @@ export default class HelpCommand extends Command {
             msg.edit(Search);
             SearchCollector = msg.channel.createMessageCollector(
               (m: Message, u: User) => {
-                return !m.author.bot && !u.bot && u.id === message.author.id;
+                return !u.bot;
               },
-              { time: 3e5 }
+              { time: 300000 }
             );
             SearchCollector.on("collect", (m: Message) => {
               if (m.content.toLowerCase() === "cancel") {

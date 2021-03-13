@@ -1,12 +1,7 @@
 import { stripIndents } from "common-tags";
 import { Argument } from "discord-akairo";
 import { Command } from "../../Structures/Command";
-import {
-  GuildMember,
-  Message,
-  MessageEmbed,
-  Util as DiscordUtil
-} from "discord.js";
+import { GuildMember, Message, MessageEmbed } from "discord.js";
 import ms from "ms";
 import { Util } from "../../Structures/Util";
 export default class UserInfoCommand extends Command {
@@ -33,7 +28,10 @@ export default class UserInfoCommand extends Command {
     });
   }
 
-  public async exec(message: Message, { member }: { member: GuildMember }) {
+  public async exec(
+    message: Message,
+    { member }: { member: GuildMember }
+  ): Promise<any> {
     const {
       username,
       tag,
