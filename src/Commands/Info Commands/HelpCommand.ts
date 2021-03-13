@@ -15,12 +15,12 @@ export default class HelpCommand extends Command {
   public constructor() {
     super("help", {
       aliases: ["help", "h"],
+      category: "Information",
       description: {
         content: "Sends the interactive help menu for Atomic",
         usage: "$help [ command ]",
         examples: ["$help", "$help p", "$help ping"]
       },
-      category: "Information",
       cooldown: 3000,
       clientPermissions: ["ADD_REACTIONS"],
       args: [
