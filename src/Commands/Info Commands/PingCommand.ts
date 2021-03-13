@@ -28,7 +28,7 @@ export default class PingCommand extends Command {
         )}** ms`.trim()
       })
         .setFooter(
-          message.author.tag,
+          `Requested by: ${message.author.tag}`,
           message.author.displayAvatarURL({ dynamic: true })
         )
         .setColor("RANDOM")
