@@ -2,18 +2,18 @@ import { stripIndents } from "common-tags";
 import { Argument } from "discord-akairo";
 import { Command } from "../../Structures/Command";
 import { GuildMember, Message, MessageEmbed } from "discord.js";
-import ms from "ms";
 import { Util } from "../../Structures/Util";
+import * as PrettyMS from "pretty-ms";
 export default class UserInfoCommand extends Command {
   public constructor() {
     super("userinfo", {
       aliases: ["userinfo", "ui", "user", "u"],
+      category: "Information",
       description: {
         content: "Shows specific information about an guild member",
         usage: "$userinfo [ member ]",
         examples: ["$userinfo comic.#6949", "$userinfo 589390599740719105"]
       },
-      category: "Information",
       cooldown: 3000,
       args: [
         {
@@ -79,9 +79,10 @@ export default class UserInfoCommand extends Command {
     }
     **❯** Account Created: ${new Intl.DateTimeFormat("en-US")
       .format(createdAt)
-      .replace(/\//g, "-")} (${ms(Date.now() - createdTimestamp, {
-          long: true
-        })} ago)
+      .replace(/\//g, "-")} (${PrettyMS.default(
+          createdAt.getTime() - Date.now(),
+          { compact: true, verbose: true }
+        )} ago)
     **❯** Bot: ${bot ? "Yes" : "No"}
     **❯** Status: ${Util.status(presence.status)}
     **❯** Game Playing: ${
@@ -94,9 +95,10 @@ export default class UserInfoCommand extends Command {
         **❯** Nickname: ${displayName}
         **❯** Joined: ${new Intl.DateTimeFormat("en-US")
           .format(joinedAt)
-          .replace(/\//g, "-")} (${ms(Date.now() - joinedTimestamp, {
-          long: true
-        })} ago)
+          .replace(/\//g, "-")} (${PrettyMS.default(
+          joinedAt.getTime() - Date.now(),
+          { compact: true, verbose: true }
+        )} ago)
         **❯** Boosting Since: ${
           premiumSince
             ? new Intl.DateTimeFormat("en-US")
