@@ -26,10 +26,12 @@ export default class PingCommand extends Command {
         <a:loading:768509189517344788> API Ping: **${Math.round(
           this.client.ws.ping
         )}** ms`.trim()
-      }).setFooter(
-        message.author.tag,
-        message.author.displayAvatarURL({ dynamic: true })
-      )
+      })
+        .setFooter(
+          message.author.tag,
+          message.author.displayAvatarURL({ dynamic: true })
+        )
+        .setColor("RANDOM")
     });
   }
 }
