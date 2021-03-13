@@ -138,7 +138,7 @@ export default class HelpCommand extends Command {
                 message.channel.send(
                   new MessageEmbed().setTitle("Cancelling").setColor("RANDOM")
                 );
-                SearchCollector.stop();
+                SearchCollector.stop("CANCELED");
                 return msg.edit(Home);
               }
               let res: Collection<string, Command> =
@@ -166,7 +166,9 @@ export default class HelpCommand extends Command {
                 .setColor("RANDOM");
               if (!res.first()) {
                 Result.setDescription("No commands or aliases have been found");
-                SearchCollector.stop();
+                setTimeout(() => {
+                  SearchCollector.stop("NONE");
+                }, 3000);
                 msg.edit(Result);
                 return m.delete();
               }
@@ -192,12 +194,22 @@ export default class HelpCommand extends Command {
                   message.author.displayAvatarURL({ dynamic: true })
                 );
               }
+              SearchCollector.stop("FOUND");
               msg.edit(Result);
-              SearchCollector.stop();
             });
-            SearchCollector.on("end", () => {
-              msg.edit(Home);
-            });
+            SearchCollector.on(
+              "end",
+              async (
+                collected: Collection<string, Message>,
+                reason: string
+              ) => {
+                if (reason !== "FOUND") {
+                  setTimeout(() => {
+                    msg.edit(Home);
+                  }, 3000);
+                }
+              }
+            );
             break;
 
           case "🔧":
