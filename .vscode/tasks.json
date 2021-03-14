@@ -4,13 +4,13 @@
     {
       "label": "atomic: build bot",
       "type": "shell",
-      "command": "tsc -p tsconfig.json",
+      "command": "yarn tsc -p tsconfig.json",
       "problemMatcher": []
     },
     {
       "label": "atomic: run compiled",
       "type": "shell",
-      "command": "node ./build/src/",
+      "command": "yarn node ./dist/src/index",
       "dependsOn": ["atomic: build bot"]
     },
     {
