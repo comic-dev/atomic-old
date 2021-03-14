@@ -84,9 +84,11 @@ class ServerInfoCommand extends Command_1.Command {
     
     **❯** AFK Channel: ${afkChannelID ? channels.cache.get(afkChannelID) : 'None'}
     **❯** Rules Channel: ${rulesChannelID ? channels.cache.get(rulesChannelID) : 'None'}
-    **❯** News Channel: ${channels.cache.find((g) => {
+    **❯** News Channel: ${channels.cache
+            .filter((g) => {
             return g.type === 'news';
-        }) ?? 'None'}`);
+        })
+            .first() ?? 'None'}`);
         message.channel.send(Embed);
     }
 }

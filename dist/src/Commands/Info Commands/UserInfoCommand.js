@@ -27,30 +27,30 @@ const Util_1 = require("../../Structures/Util");
 const PrettyMS = __importStar(require("pretty-ms"));
 class UserInfoCommand extends Command_1.Command {
     constructor() {
-        super("userinfo", {
-            aliases: ["userinfo", "ui", "user", "u"],
-            category: "Information",
+        super('userinfo', {
+            aliases: ['userinfo', 'ui', 'user', 'u'],
+            category: 'Information',
             description: {
-                content: "Shows specific information about an guild member",
-                usage: "$userinfo [ member ]",
-                examples: ["$userinfo comic.#6949", "$userinfo 589390599740719105"]
+                content: 'Shows specific information about an guild member',
+                usage: '$userinfo [ member ]',
+                examples: ['$userinfo comic.#6949', '$userinfo 589390599740719105'],
             },
             cooldown: 3000,
             args: [
                 {
-                    id: "member",
-                    match: "content",
-                    type: discord_akairo_1.Argument.union("member", "relevant"),
+                    id: 'member',
+                    match: 'content',
+                    type: discord_akairo_1.Argument.union('member', 'relevant'),
                     default: (msg) => {
                         return msg.member;
-                    }
-                }
-            ]
+                    },
+                },
+            ],
         });
     }
     async exec(message, { member }) {
-        const { username, tag, createdAt, createdTimestamp, discriminator, bot, flags, id, presence } = member.user;
-        const { roles, permissions, joinedAt, joinedTimestamp, premiumSince, premiumSinceTimestamp, displayHexColor, displayName } = member;
+        const { username, tag, createdAt, createdTimestamp, discriminator, bot, flags, id, presence, } = member.user;
+        const { roles, permissions, joinedAt, joinedTimestamp, premiumSince, premiumSinceTimestamp, displayHexColor, displayName, } = member;
         const Info = new discord_js_1.MessageEmbed()
             .setTitle(`Info for ${username}`)
             .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
@@ -58,7 +58,7 @@ class UserInfoCommand extends Command_1.Command {
             .setFooter(`Requested by: ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }))
             .setTimestamp();
         Info.addFields({
-            name: "User",
+            name: 'User',
             value: common_tags_1.stripIndents `
     **❯** Username: ${username}
     **❯** Tag: ${tag}
@@ -66,28 +66,28 @@ class UserInfoCommand extends Command_1.Command {
     **❯** ID: ${id}
     **❯** Badges: ${flags !== null && flags.toArray().length > 0
                 ? Util_1.Util.badges(flags.toArray())
-                : "None"}
-    **❯** Account Created: ${new Intl.DateTimeFormat("en-US")
+                : 'None'}
+    **❯** Account Created: ${new Intl.DateTimeFormat('en-US')
                 .format(createdAt)
-                .replace(/\//g, "-")} (${PrettyMS.default(createdAt.getTime() - Date.now(), { compact: true, verbose: true })} ago)
-    **❯** Bot: ${bot ? "Yes" : "No"}
+                .replace(/\//g, '-')} (${PrettyMS.default(Date.now() - Date.parse(createdAt.toISOString()), { compact: true, verbose: true })} ago)
+    **❯** Bot: ${bot ? 'Yes' : 'No'}
     **❯** Status: ${Util_1.Util.status(presence.status)}
-    **❯** Game Playing: ${presence.activities.length > 0 ? presence.activities[0].name : "None"}`
+    **❯** Game Playing: ${presence.activities.length > 0 ? presence.activities[0].name : 'None'}`,
         }, {
-            name: "Member",
+            name: 'Member',
             value: common_tags_1.stripIndents `
         **❯** Nickname: ${displayName}
-        **❯** Joined: ${new Intl.DateTimeFormat("en-US")
+        **❯** Joined: ${new Intl.DateTimeFormat('en-US')
                 .format(joinedAt)
-                .replace(/\//g, "-")} (${PrettyMS.default(joinedAt.getTime() - Date.now(), { compact: true, verbose: true })} ago)
+                .replace(/\//g, '-')} (${PrettyMS.default(Date.now() - Date.parse(joinedAt.toISOString()), { compact: true, verbose: true })} ago)
         **❯** Boosting Since: ${premiumSince
-                ? new Intl.DateTimeFormat("en-US")
+                ? new Intl.DateTimeFormat('en-US')
                     .format(premiumSinceTimestamp)
-                    .replace(/\//g, "-")
-                : "Not Boosting"}
+                    .replace(/\//g, '-')
+                : 'Not Boosting'}
         **❯** Permissions: ${permissions.toArray().length > 0
                 ? Util_1.Util.trim(Util_1.Util.normalize(permissions.toArray(true)))
-                : "None"}
+                : 'None'}
         **❯** Roles: ${Util_1.Util.trim(Util_1.Util.normalize(roles.cache
                 .sort((r, h) => {
                 return h.position - r.position;
@@ -95,7 +95,7 @@ class UserInfoCommand extends Command_1.Command {
                 .map((r) => {
                 return r.toString();
             })))}
-        **❯** Hoist Role: ${roles.hoist ?? "None"}`
+        **❯** Hoist Role: ${roles.hoist ?? 'None'}`,
         });
         message.channel.send(Info);
     }

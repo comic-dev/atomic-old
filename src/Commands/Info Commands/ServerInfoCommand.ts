@@ -111,9 +111,11 @@ export default class ServerInfoCommand extends Command {
 			rulesChannelID ? channels.cache.get(rulesChannelID) : 'None'
 		}
     **❯** News Channel: ${
-			channels.cache.find((g) => {
-				return g.type === 'news';
-			}) ?? 'None'
+			channels.cache
+				.filter((g) => {
+					return g.type === 'news';
+				})
+				.first() ?? 'None'
 		}`
 			);
 
