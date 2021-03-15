@@ -101,7 +101,7 @@ export default class ServerInfoCommand extends Command {
 						compact: true,
 						verbose: true,
 					}
-				)})
+				)} ago)
     
     **❯** AFK Channel: ${
 			afkChannelID ? channels.cache.get(afkChannelID) : 'None'
