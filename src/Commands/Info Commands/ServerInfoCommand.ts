@@ -41,7 +41,6 @@ export default class ServerInfoCommand extends Command {
 		} = message.guild;
 
 		if (!available) return;
-
 		const Embed: MessageEmbed = new MessageEmbed()
 			.setFooter(
 				`Requested by: ${message.author.tag}`,
