@@ -31,15 +31,15 @@ export class Atomic extends AkairoClient {
 		argumentDefaults: {
 			prompt: {
 				modifyStart: (msg: Message, str: string): string => {
-					return `${str}\n\n**Type \`cancel\` to cancel the command...**`;
+					return `${str}\n\nType \`cancel\` to cancel the command...`;
 				},
 				modifyRetry: (msg: Message, str: string): string => {
-					return `${str}\n\n**Type \`cancel\` to cancel the command...**`;
+					return `${str}\n\nType \`cancel\` to cancel the command...`;
 				},
-				timeout:
-					'**You took too long to respond, the command has been cancelled**',
+				timeout: 'You took too long to respond, the command has been cancelled',
 				ended:
-					'**You exceeded the maximum amount of tries, the command has been cancelled**',
+					'You exceeded the maximum amount of tries, the command has been cancelled',
+				cancel: 'You cancelled the command',
 				retries: 3,
 				time: 3e4,
 			},
