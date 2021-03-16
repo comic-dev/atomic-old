@@ -11,8 +11,8 @@ export default class ServerInfoCommand extends Command {
 			category: 'Information',
 			description: {
 				content: 'Displays all the info about the current guild',
-				examples: ['$serverinfo'],
 				usage: '$serverinfo',
+				examples: ['$serverinfo'],
 			},
 		});
 	}
