@@ -13,7 +13,11 @@
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"paths": {
+			"@atomic/src/*": ["src/*"],
+			"@atomic/struct/*": ["src/Structures/*"]
+		}
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
