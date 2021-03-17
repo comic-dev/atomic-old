@@ -14,10 +14,7 @@
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
 		"resolveJsonModule": true,
-		"paths": {
-			"@atomic/src/*": ["src/*"],
-			"@atomic/struct/*": ["src/Structures/*"]
-		}
+		"baseUrl": "./"
 	},
 	"include": ["src"],
 	"exclude": ["node_modules", "**/*.spec.ts"]

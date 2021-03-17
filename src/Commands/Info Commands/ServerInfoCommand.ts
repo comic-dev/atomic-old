@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '@atomic/struct/Command';
-import { Util } from '@atomic/struct/Util';
+import { Command } from '../../Structures/Command';
+import { Util } from '../../Structures/Util';
 import { stripIndents } from 'common-tags';
 import { CategoryChannel } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';
