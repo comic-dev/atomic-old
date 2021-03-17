@@ -1,6 +1,6 @@
 import { stripIndents } from 'common-tags';
 import { Category, PrefixSupplier, Argument } from 'discord-akairo';
-import { Command } from 'src/Structures/Command';
+import { Command } from '../../Structures/Command';
 import {
 	Collection,
 	Message,
