@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '../../Structures/Command';
+import { Command } from '@atomic/struct/Command';
+import { Util } from '@atomic/struct/Util';
 import { stripIndents } from 'common-tags';
-import { Util } from '../../Structures/Util';
 import { CategoryChannel } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';
 export default class ServerInfoCommand extends Command {

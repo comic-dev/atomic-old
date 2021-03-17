@@ -1,8 +1,8 @@
 import { stripIndents } from 'common-tags';
 import { Argument } from 'discord-akairo';
-import { Command } from '../../Structures/Command';
+import { Command } from '@atomic/struct/Command';
+import { Util } from '@atomic/struct/Util';
 import { GuildMember, Message, MessageEmbed } from 'discord.js';
-import { Util } from '../../Structures/Util';
 import * as PrettyMS from 'pretty-ms';
 export default class UserInfoCommand extends Command {
 	public constructor() {

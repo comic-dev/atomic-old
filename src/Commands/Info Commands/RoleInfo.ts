@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '../../Structures/Command';
+import { Command } from '@atomic/struct/Command';
+import { Util } from '@atomic/struct/Util';
 import { stripIndents } from 'common-tags';
-import { Util } from '../../Structures/Util';
 import * as PrettyMS from 'pretty-ms';
 import { Role } from 'discord.js';
 export default class RoleInfo extends Command {
