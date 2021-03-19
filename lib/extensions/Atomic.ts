@@ -11,15 +11,15 @@ import { Prefix } from '@atomic/config/Prefix';
 export class Atomic extends AkairoClient {
 	public config: Config;
 	public listenerHandler: ListenerHandler = new ListenerHandler(this, {
-		directory: join(__dirname, '..', 'Events')
+		directory: join(__dirname, '..', '..', 'src', 'Events')
 	});
 
 	public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
-		directory: join(__dirname, '..', 'Inhibitors')
+		directory: join(__dirname, '..', '..', 'src', 'Inhibitors')
 	});
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
-		directory: join(__dirname, '..', 'Commands'),
+		directory: join(__dirname, '..', '..', 'src', 'Commands'),
 		prefix: (message: Message) => {
 			return Prefix(message);
 		},

@@ -4,7 +4,7 @@
     {
       "label": "atomic: build bot",
       "type": "shell",
-      "command": "yarn tsc",
+      "command": "yarn tsc | yarn tscpaths -p tsconfig.json -s ../Atomic -o ./dist",
       "problemMatcher": []
     },
     {

@@ -20,6 +20,6 @@
 			"@atomic/config/*": ["config/*"] 
 		}
 	},
-	"include": ["src", "config/Config.ts"],
+	"include": ["src"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }
