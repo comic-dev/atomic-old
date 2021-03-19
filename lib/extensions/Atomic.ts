@@ -2,19 +2,20 @@ import {
 	AkairoClient,
 	CommandHandler,
 	ListenerHandler,
-	InhibitorHandler,
+	InhibitorHandler
 } from 'discord-akairo';
 import { Message, Intents } from 'discord.js';
 import { join } from 'path';
-import { Config, Prefix } from '../Config';
+import { Config } from '@atomic/config/Declaration';
+import { Prefix } from '@atomic/config/Prefix';
 export class Atomic extends AkairoClient {
 	public config: Config;
 	public listenerHandler: ListenerHandler = new ListenerHandler(this, {
-		directory: join(__dirname, '..', 'Events'),
+		directory: join(__dirname, '..', 'Events')
 	});
 
 	public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
-		directory: join(__dirname, '..', 'Inhibitors'),
+		directory: join(__dirname, '..', 'Inhibitors')
 	});
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
@@ -41,19 +42,19 @@ export class Atomic extends AkairoClient {
 					'You exceeded the maximum amount of tries, the command has been cancelled',
 				cancel: 'You cancelled the command',
 				retries: 3,
-				time: 3e4,
+				time: 3e4
 			},
-			otherwise: '',
-		},
+			otherwise: ''
+		}
 	});
 
 	public constructor(config: Config) {
 		super({
 			ws: {
-				intents: Intents.ALL,
+				intents: Intents.ALL
 			},
 			partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
-			ownerID: config.owner,
+			ownerID: config.owner
 		});
 		this.config = config;
 	}
@@ -64,7 +65,7 @@ export class Atomic extends AkairoClient {
 		this.listenerHandler.setEmitters({
 			commandHandler: this.commandHandler,
 			listenerHandler: this.listenerHandler,
-			process,
+			process
 		});
 
 		this.commandHandler.loadAll();

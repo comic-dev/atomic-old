@@ -1,7 +1,7 @@
 import { stripIndents } from 'common-tags';
 import { Argument } from 'discord-akairo';
-import { Command } from '../../Structures/Command';
-import { Util } from '../../Structures/Util';
+import { Command } from '@atomic/lib/extensions/Command';
+import { Util } from '@atomic/lib/Util';
 import { GuildMember, Message, MessageEmbed } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';
 export default class UserInfoCommand extends Command {
@@ -12,7 +12,7 @@ export default class UserInfoCommand extends Command {
 			description: {
 				content: 'Shows specific information about an guild member',
 				usage: '$userinfo [ member ]',
-				examples: ['$userinfo comic.#6949', '$userinfo 589390599740719105'],
+				examples: ['$userinfo comic.#6949', '$userinfo 589390599740719105']
 			},
 			cooldown: 3000,
 			args: [
@@ -22,9 +22,9 @@ export default class UserInfoCommand extends Command {
 					type: Argument.union('member', 'relevant'),
 					default: (msg: Message) => {
 						return msg.member;
-					},
-				},
-			],
+					}
+				}
+			]
 		});
 	}
 
@@ -41,7 +41,7 @@ export default class UserInfoCommand extends Command {
 			bot,
 			flags,
 			id,
-			presence,
+			presence
 		} = member.user;
 		const {
 			roles,
@@ -51,7 +51,7 @@ export default class UserInfoCommand extends Command {
 			premiumSince,
 			premiumSinceTimestamp,
 			displayHexColor,
-			displayName,
+			displayName
 		} = member;
 
 		const Info: MessageEmbed = new MessageEmbed()
@@ -87,7 +87,7 @@ export default class UserInfoCommand extends Command {
     **❯** Status: ${Util.status(presence.status)}
     **❯** Game Playing: ${
 			presence.activities.length > 0 ? presence.activities[0].name : 'None'
-		}`,
+		}`
 			},
 			{
 				name: 'Member',
@@ -122,7 +122,7 @@ export default class UserInfoCommand extends Command {
 							})
 					)
 				)}
-        **❯** Hoist Role: ${roles.hoist ?? 'None'}`,
+        **❯** Hoist Role: ${roles.hoist ?? 'None'}`
 			}
 		);
 		message.channel.send(Info);

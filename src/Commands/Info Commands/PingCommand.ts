@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '../../Structures/Command';
+import { Command } from '@atomic/lib/extensions/Command';
 export default class PingCommand extends Command {
 	public constructor() {
 		super('ping', {
@@ -8,9 +8,9 @@ export default class PingCommand extends Command {
 			description: {
 				content: "Displays the bot's ping in milliseconds",
 				usage: '$ping',
-				examples: ['$ping'],
+				examples: ['$ping']
 			},
-			cooldown: 3000,
+			cooldown: 3000
 		});
 	}
 
@@ -25,14 +25,14 @@ export default class PingCommand extends Command {
 				)}** ms
         <a:loading:768509189517344788> API Ping: **${Math.round(
 					this.client.ws.ping
-				)}** ms`.trim(),
+				)}** ms`.trim()
 			})
 				.setFooter(
 					`Requested by: ${message.author.tag}`,
 					message.author.displayAvatarURL({ dynamic: true })
 				)
 				.setTimestamp()
-				.setColor('RANDOM'),
+				.setColor('RANDOM')
 		});
 	}
 }

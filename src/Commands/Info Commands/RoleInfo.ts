@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '../../Structures/Command';
-import { Util } from '../../Structures/Util';
+import { Command } from '@atomic/lib/extensions/Command';
+import { Util } from '@atomic/lib/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
 import { Role } from 'discord.js';
@@ -12,7 +12,7 @@ export default class RoleInfo extends Command {
 			description: {
 				content: 'Displays info about an specific role',
 				usage: '$roleinfo [ role ]',
-				examples: ['$roleinfo member'],
+				examples: ['$roleinfo member']
 			},
 			args: [
 				{
@@ -22,10 +22,10 @@ export default class RoleInfo extends Command {
 						start: (msg: Message) => `${msg.author} Please specify an role`,
 						retry: (msg: Message) =>
 							`${msg.author} Please specify an valid role`,
-						retries: 3,
-					},
-				},
-			],
+						retries: 3
+					}
+				}
+			]
 		});
 	}
 	public async exec(message: Message, { role }: { role: Role }) {
@@ -39,7 +39,7 @@ export default class RoleInfo extends Command {
 			position,
 			members,
 			mentionable,
-			managed,
+			managed
 		} = role;
 		const Embed: MessageEmbed = new MessageEmbed()
 			.addField(

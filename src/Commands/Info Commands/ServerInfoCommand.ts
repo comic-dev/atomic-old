@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '../../Structures/Command';
-import { Util } from '../../Structures/Util';
+import { Command } from '@atomic/lib/extensions/Command';
+import { Util } from '@atomic/lib/Util';
 import { stripIndents } from 'common-tags';
 import { CategoryChannel } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';
@@ -12,8 +12,8 @@ export default class ServerInfoCommand extends Command {
 			description: {
 				content: 'Displays all the info about the current guild',
 				usage: '$serverinfo',
-				examples: ['$serverinfo'],
-			},
+				examples: ['$serverinfo']
+			}
 		});
 	}
 
@@ -37,7 +37,7 @@ export default class ServerInfoCommand extends Command {
 			createdAt,
 			rulesChannelID,
 			roles,
-			joinedAt,
+			joinedAt
 		} = message.guild;
 
 		if (!available) return;
@@ -99,7 +99,7 @@ export default class ServerInfoCommand extends Command {
 					Date.now() - Date.parse(joinedAt.toISOString()),
 					{
 						compact: true,
-						verbose: true,
+						verbose: true
 					}
 				)} ago)
     

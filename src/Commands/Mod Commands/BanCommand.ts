@@ -1,6 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '../../../lib/extensions/Command';
-import { Util } from '../../../lib/extensions/Util';
+import { Command } from '@atomic/lib/extensions/Command';
 import MS from 'ms';
 import { GuildMember } from 'discord.js';
 export default class BanCommand extends Command {

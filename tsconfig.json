@@ -13,8 +13,13 @@
 		"skipLibCheck": true,
 		"skipDefaultLibCheck": true,
 		"resolveJsonModule": true,
-		"baseUrl": "./"
+		"baseUrl": "./",
+		"paths": {
+			"@atomic/src/*": ["src/*"],
+			"@atomic/lib/*": ["lib/*"],
+			"@atomic/config/*": ["config/*"] 
+		}
 	},
-	"include": ["src"],
+	"include": ["src", "config/Config.ts"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }

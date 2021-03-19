@@ -2,6 +2,7 @@ import {
 	Command as AkairoCommand,
 	CommandOptions as AkairoCommandOptions
 } from 'discord-akairo';
+import { Atomic } from '@atomic/lib/extensions/Atomic';
 export class Command extends AkairoCommand {
 	public constructor(id: string, options?: CommandOptions) {
 		super(id, {
@@ -11,14 +12,15 @@ export class Command extends AkairoCommand {
 	}
 
 	public description: CommandDescription;
+	public client: Atomic;
 }
 
 interface CommandOptions extends AkairoCommandOptions {
-	description: CommandDescription;
+	description?: CommandDescription;
 }
 
 interface CommandDescription {
-	content: string;
-	usage: string;
-	examples: string[];
+	content?: string;
+	usage?: string;
+	examples?: string[];
 }
