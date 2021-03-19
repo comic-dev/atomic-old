@@ -1,5 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
+import { Runner } from '@atomic/lib/Runnner';
 import { Util } from '@atomic/lib/Util';
 import { stripIndents } from 'common-tags';
 import { CategoryChannel } from 'discord.js';
@@ -17,7 +18,7 @@ export default class ServerInfoCommand extends Command {
 		});
 	}
 
-	public async exec(message: Message): Promise<any> {
+	public exec: Runner<null> = async (message: Message): Promise<any> => {
 		const {
 			premiumTier,
 			premiumSubscriptionCount,
@@ -119,5 +120,5 @@ export default class ServerInfoCommand extends Command {
 			);
 
 		message.channel.send(Embed);
-	}
+	};
 }

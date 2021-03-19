@@ -4,6 +4,7 @@ import { Util } from '@atomic/lib/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
 import { Role } from 'discord.js';
+import { Runner } from '@atomic/lib/Runnner';
 export default class RoleInfo extends Command {
 	public constructor() {
 		super('roleinfo', {
@@ -28,7 +29,10 @@ export default class RoleInfo extends Command {
 			]
 		});
 	}
-	public async exec(message: Message, { role }: { role: Role }) {
+	public exec: Runner<{ role: Role }> = async (
+		message: Message,
+		{ role }: { role: Role }
+	): Promise<any> => {
 		const {
 			name,
 			id,
@@ -66,5 +70,5 @@ export default class RoleInfo extends Command {
 			)
 			.setColor(hexColor);
 		message.channel.send(Embed);
-	}
+	};
 }

@@ -2,6 +2,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
 import MS from 'ms';
 import { GuildMember } from 'discord.js';
+import { Runner } from '@atomic/lib/Runnner';
 export default class BanCommand extends Command {
 	public constructor() {
 		super('ban', {
@@ -49,18 +50,11 @@ export default class BanCommand extends Command {
 		});
 	}
 
-	public async exec(
-		message: Message,
-		{
-			member,
-			time,
-			reason
-		}: {
-			member: GuildMember;
-			time: any;
-			reason: string;
-		}
-	): Promise<any> {
+	public exec: Runner<{
+		member: GuildMember;
+		time: any;
+		reason: string;
+	}> = async (message: Message, { member, time, reason }): Promise<any> => {
 		if (member.id === message.member.id)
 			return message.channel
 				.send(new MessageEmbed().setDescription('You cannot ban yourself.'))
@@ -98,5 +92,5 @@ export default class BanCommand extends Command {
 				message.guild.members.unban(member.id, 'Ban period expired');
 			}, time);
 		} else return;
-	}
+	};
 }
