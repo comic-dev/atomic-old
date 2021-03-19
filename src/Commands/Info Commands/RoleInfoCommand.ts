@@ -4,7 +4,7 @@ import { Util } from 'util/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
 import { Role } from 'discord.js';
-import { Runner } from '@atomic/lib/Runnner';
+import { Runner } from '@atomic/lib/Runner';
 export default class RoleInfo extends Command {
 	public constructor() {
 		super('roleinfo', {

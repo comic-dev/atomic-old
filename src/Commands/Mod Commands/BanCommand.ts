@@ -2,7 +2,7 @@ import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
 import MS from 'ms';
 import { GuildMember } from 'discord.js';
-import { Runner } from '@atomic/lib/Runnner';
+import { Runner } from '@atomic/lib/Runner';
 export default class BanCommand extends Command {
 	public constructor() {
 		super('ban', {

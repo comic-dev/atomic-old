@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runnner';
+import { Runner } from '@atomic/lib/Runner';
 export default class PingCommand extends Command {
 	public constructor() {
 		super('ping', {

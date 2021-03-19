@@ -1,7 +1,7 @@
 import { stripIndents } from 'common-tags';
 import { Category, PrefixSupplier, Argument } from 'discord-akairo';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runnner';
+import { Runner } from '@atomic/lib/Runner';
 import {
 	Collection,
 	Message,
