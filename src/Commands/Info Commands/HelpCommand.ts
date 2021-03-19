@@ -161,6 +161,7 @@ export default class HelpCommand extends Command {
 										);
 									});
 								});
+							console.log(res);
 
 							const Result: MessageEmbed = new MessageEmbed()
 								.setTitle('Search Results')
