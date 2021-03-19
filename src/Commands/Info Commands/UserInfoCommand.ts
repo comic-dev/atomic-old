@@ -2,7 +2,7 @@ import { stripIndents } from 'common-tags';
 import { Argument } from 'discord-akairo';
 import { Command } from '@atomic/lib/extensions/Command';
 import { Runner } from '@atomic/lib/Runnner';
-import { Util } from '@atomic/lib/Util';
+import { Util } from '@atomic/util/Util';
 import { GuildMember, Message, MessageEmbed } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';
 export default class UserInfoCommand extends Command {

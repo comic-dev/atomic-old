@@ -37,7 +37,7 @@ export default class HelpCommand extends Command {
 
 	public exec: Runner<{ command: Command }> = async (
 		message: Message,
-		{ command }
+		{ command }: { command: Command }
 	): Promise<any> => {
 		let SearchCollector: MessageCollector;
 		const prefix = await (this.handler.prefix as PrefixSupplier)(message);

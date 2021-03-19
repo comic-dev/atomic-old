@@ -1,7 +1,7 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
 import { Runner } from '@atomic/lib/Runnner';
-import { Util } from '@atomic/lib/Util';
+import { Util } from '@atomic/util/Util';
 import { stripIndents } from 'common-tags';
 import { CategoryChannel } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';

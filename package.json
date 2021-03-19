@@ -26,6 +26,7 @@
   "_moduleAliases": {
     "@atomic/src": "./dist/src",
     "@atomic/lib": "./dist/lib",
+    "@atomic/util": "./dist/util",
     "@atomic/config": "./dist/config"
   }
 }

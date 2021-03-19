@@ -17,6 +17,7 @@
 		"paths": {
 			"@atomic/src/*": ["src/*"],
 			"@atomic/lib/*": ["lib/*"],
+			"@atomic/util/*": ["util/*"],
 			"@atomic/config/*": ["config/*"] 
 		}
 	},
