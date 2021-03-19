@@ -14,6 +14,7 @@ export class Command extends AkairoCommand {
 
 	public description: CommandDescription;
 	public client: Atomic;
+	public exec: Runner<any>;
 }
 
 interface CommandOptions extends AkairoCommandOptions {
