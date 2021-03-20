@@ -7,9 +7,11 @@ import {
 import { Message, Intents } from 'discord.js';
 import { join } from 'path';
 import { Config } from '@atomic/config/Declaration';
+// import { Database } from '@atomic/util/Database';
 import { Prefix } from '@atomic/config/Prefix';
 export class Atomic extends AkairoClient {
 	public config: Config;
+	// public db: Database;
 	public listenerHandler: ListenerHandler = new ListenerHandler(this, {
 		directory: join(__dirname, '..', '..', 'src', 'Events')
 	});
@@ -57,6 +59,7 @@ export class Atomic extends AkairoClient {
 			ownerID: config.owner
 		});
 		this.config = config;
+		// this.db = new Database(this.config.fireAUTH);
 	}
 
 	private async _init(): Promise<void> {

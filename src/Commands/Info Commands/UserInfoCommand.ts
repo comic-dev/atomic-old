@@ -1,7 +1,7 @@
 import { stripIndents } from 'common-tags';
 import { Argument } from 'discord-akairo';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runnner';
+import { Runner } from '@atomic/lib/Runner';
 import { Util } from '@atomic/util/Util';
 import { GuildMember, Message, MessageEmbed } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';

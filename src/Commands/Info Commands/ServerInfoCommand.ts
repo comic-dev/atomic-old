@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runnner';
+import { Runner } from '@atomic/lib/Runner';
 import { Util } from '@atomic/util/Util';
 import { stripIndents } from 'common-tags';
 import { CategoryChannel } from 'discord.js';
@@ -40,7 +40,6 @@ export default class ServerInfoCommand extends Command {
 			roles,
 			joinedAt
 		} = message.guild;
-
 		if (!available) return;
 		const Embed: MessageEmbed = new MessageEmbed()
 			.setFooter(
