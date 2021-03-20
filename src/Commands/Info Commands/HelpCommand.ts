@@ -150,7 +150,7 @@ export default class HelpCommand extends Command {
 											.match(new RegExp(m.content.toLowerCase(), 'g'))?.length >
 										0
 									);
-								}) ||
+								}) &&
 								this.handler.modules.filter((c) => {
 									return c.aliases.some((v) => {
 										return (
@@ -161,7 +161,6 @@ export default class HelpCommand extends Command {
 										);
 									});
 								});
-							console.log(res);
 
 							const Result: MessageEmbed = new MessageEmbed()
 								.setTitle('Search Results')
