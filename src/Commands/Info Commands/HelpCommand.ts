@@ -142,16 +142,18 @@ export default class HelpCommand extends Command {
 								SearchCollector.stop('CANCELED');
 								return msg.edit(Home);
 							}
-							let res =
-								this.handler.modules.filter((c: Command) => {
+							let res = this.handler.modules
+								.filter((c: Command) => {
 									return (
 										c.id
 											.toLowerCase()
 											.match(new RegExp(m.content.toLowerCase(), 'g'))?.length >
 										0
 									);
-								}) &&
-								this.handler.modules.filter((c) => {
+								})
+								?.first();
+							this.handler.modules
+								.filter((c) => {
 									return c.aliases.some((v) => {
 										return (
 											v
@@ -160,12 +162,13 @@ export default class HelpCommand extends Command {
 												?.length > 0
 										);
 									});
-								});
+								})
+								?.first();
 
 							const Result: MessageEmbed = new MessageEmbed()
 								.setTitle('Search Results')
 								.setColor('RANDOM');
-							if (!res.first()) {
+							if (!res?.id) {
 								Result.setDescription('No commands or aliases have been found');
 								setTimeout(() => {
 									SearchCollector.stop('NONE');
@@ -173,24 +176,24 @@ export default class HelpCommand extends Command {
 								msg.edit(Result);
 								return m.delete();
 							}
-							if (res.first()) {
+							if (res) {
 								Result.setDescription('Found an Command');
 								Result.addField(
-									res.first().id,
+									res.id,
 									stripIndents`
-                **❯** Name: ${res.first().id}
-                **❯** Aliases: ${res.first().aliases.join(', ')}
-                **❯** Category: ${res.first().categoryID}
-                **❯** Description: ${res.first().description.content}
+                **❯** Name: ${res.id}
+                **❯** Aliases: ${res.aliases.join(', ')}
+                **❯** Category: ${res.categoryID}
+                **❯** Description: ${res.description.content}
                 **❯** Cooldown: ${ms(
-									res.first().cooldown ?? this.handler.defaultCooldown,
+									res.cooldown ?? this.handler.defaultCooldown,
 									{
 										long: true
 									}
 								)}
-                **❯** Usage: ${res.first().description.usage}
-                **❯** Examples: \n${res.first().description.examples.join('\n')}
-                ${res.first().ownerOnly ? '**Developer Only!**' : ''}`
+                **❯** Usage: ${res.description.usage}
+                **❯** Examples: \n${res.description.examples.join('\n')}
+                ${res.ownerOnly ? '**Developer Only!**' : ''}`
 								).setThumbnail(
 									message.author.displayAvatarURL({ dynamic: true })
 								);
