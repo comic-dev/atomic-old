@@ -1,10 +1,10 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
+import { Runner } from '@atomic/lib/Runner';
 import { Util } from '@atomic/util/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
 import { Role } from 'discord.js';
-import { Runner } from '@atomic/lib/Runner';
 export default class RoleInfo extends Command {
 	public constructor() {
 		super('roleinfo', {
