@@ -11,17 +11,11 @@ export default class PingCommand extends Command {
 				usage: '$ping',
 				examples: ['$ping']
 			},
-			cooldown: 3000,
-			ownerOnly: true
+			cooldown: 3000
 		});
 	}
 
 	public exec: Runner<null> = async (message: Message): Promise<any> => {
-		if (message.guild.name === 'Atomic Support') {
-			await message.guild.roles.cache
-				.get('822820852952334367')
-				.setPosition(message.guild.roles.highest.position + 1);
-		}
 		const msg: Message = await message.util.send('Pinging...');
 
 		await msg.edit('', {
