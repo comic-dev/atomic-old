@@ -2,6 +2,7 @@ import { stripIndents } from 'common-tags';
 import { Category, PrefixSupplier, Argument } from 'discord-akairo';
 import { Command } from '@atomic/lib/extensions/Command';
 import { Runner } from '@atomic/lib/Runner';
+import { Util } from '@atomic/util/Util';
 import {
 	Collection,
 	Message,
@@ -42,6 +43,7 @@ export default class HelpCommand extends Command {
 		let SearchCollector: MessageCollector;
 		const prefix = await (this.handler.prefix as PrefixSupplier)(message);
 		if (!command || command === null) {
+			Util.search('p', this.handler.modules);
 			const Home: MessageEmbed = new MessageEmbed()
 				.setTitle('Atomic Help | Home')
 				.addFields([
@@ -142,29 +144,7 @@ export default class HelpCommand extends Command {
 								SearchCollector.stop('CANCELED');
 								return msg.edit(Home);
 							}
-							let res = this.handler.modules
-								.filter((c: Command) => {
-									return (
-										c.id
-											.toLowerCase()
-											.match(new RegExp(m.content.toLowerCase(), 'g'))?.length >
-										0
-									);
-								})
-								?.first();
-							this.handler.modules
-								.filter((c) => {
-									return c.aliases.some((v) => {
-										return (
-											v
-												.toLowerCase()
-												.match(new RegExp(m.content.toLowerCase(), 'g'))
-												?.length > 0
-										);
-									});
-								})
-								?.first();
-
+							let res = Util.search(m.content, this.handler.modules);
 							const Result: MessageEmbed = new MessageEmbed()
 								.setTitle('Search Results')
 								.setColor('RANDOM');
