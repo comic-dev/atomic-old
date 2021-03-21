@@ -1,12 +1,23 @@
-// import Admin from 'firebase-admin';
-// export class Database extends Admin.firestore.Firestore {
-// 	private _app: Admin.app.App;
-// 	private _db: Admin.firestore.Firestore;
-// 	public constructor(credentials: Admin.ServiceAccount) {
-// 		super();
-// 		this._app = Admin.initializeApp({
-// 			credential: Admin.credential.cert(credentials)
-// 		});
-// 		this._db = this._app.firestore();
-// 	}
-// }
+import { Connection, ConnectionManager } from 'typeorm';
+export class Database {
+	public connection: Connection;
+	private _uri: string;
+
+	public constructor(mongoURI: string) {
+		this._uri = mongoURI;
+		this._init();
+	}
+
+	private async _init(): Promise<void> {
+		this.connection = await new ConnectionManager()
+			.create({
+				type: 'mongodb',
+				name: 'atomic',
+				url: this._uri,
+				useUnifiedTopology: true,
+				useNewUrlParser: true
+			})
+			.connect();
+		console.log(this.connection);
+	}
+}

@@ -18,5 +18,5 @@ export interface Config {
 	token: string;
 	owner: string;
 	prefix: string;
-	//fireAUTH: Admin.ServiceAccount;
+	mongoURI: string;
 }
