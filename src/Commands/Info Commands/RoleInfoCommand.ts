@@ -33,6 +33,7 @@ export default class RoleInfo extends Command {
 		message: Message,
 		{ role }: { role: Role }
 	): Promise<any> => {
+		console.log(message.guild.members);
 		const {
 			name,
 			id,

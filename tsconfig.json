@@ -21,6 +21,6 @@
 			"@atomic/config/*": ["config/*"] 
 		}
 	},
-	"include": ["src"],
+	"include": ["src", "lib", "config"],
 	"exclude": ["node_modules", "**/*.spec.ts"]
 }
