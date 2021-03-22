@@ -208,15 +208,15 @@ export default class HelpCommand extends Command {
 				.addField(
 					command.id,
 					stripIndents`
-      **** Name: ${command.id}
-      **** Aliases: ${command.aliases.join(', ')}
-      **** Category: ${command.categoryID}
-      **** Description: ${command.description.content}
-      **** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
+      **❯** Name: ${command.id}
+      **❯** Aliases: ${command.aliases.join(', ')}
+      **❯** Category: ${command.categoryID}
+      **❯** Description: ${command.description.content}
+      **❯** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
 				long: true
 			})}
-      **** Usage: ${command.description.usage}
-      **\\>** Examples: \n${command.description.examples.join('\n')}
+      **❯** Usage: ${command.description.usage}
+      **❯** Examples: \n${command.description.examples.join('\n')}
       ${command.ownerOnly ? '**Developer Only!**' : ''}`
 				)
 				.setColor('RANDOM')
