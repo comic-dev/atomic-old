@@ -7,9 +7,11 @@ import {
 import { Message, Intents } from 'discord.js';
 import { Client } from 'faunadb';
 import { join } from 'path';
+import consola, { Consola } from 'consola';
 import { Config } from '@atomic/config/Declaration';
 import { Prefix } from '@atomic/config/Prefix';
 export class Atomic extends AkairoClient {
+	public logger: Consola = consola;
 	public config: Config;
 	public db: Client;
 
