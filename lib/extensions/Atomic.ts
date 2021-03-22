@@ -12,6 +12,19 @@ import { Prefix } from '@atomic/config/Prefix';
 export class Atomic extends AkairoClient {
 	public config: Config;
 	public db: Client;
+
+	public constructor(config: Config) {
+		super({
+			ws: {
+				intents: Intents.ALL
+			},
+			partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
+			ownerID: config.owner
+		});
+		this.config = config;
+		this.db = new Client({ secret: this.config.faunaDB.secret });
+	}
+
 	public listenerHandler: ListenerHandler = new ListenerHandler(this, {
 		directory: join(__dirname, '..', '..', 'src', 'Events')
 	});
@@ -23,7 +36,7 @@ export class Atomic extends AkairoClient {
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', '..', 'src', 'Commands'),
 		prefix: (message: Message) => {
-			return Prefix(message);
+			return Prefix(message, this);
 		},
 		allowMention: true,
 		handleEdits: true,
@@ -49,18 +62,6 @@ export class Atomic extends AkairoClient {
 			otherwise: ''
 		}
 	});
-
-	public constructor(config: Config) {
-		super({
-			ws: {
-				intents: Intents.ALL
-			},
-			partials: ['USER', 'CHANNEL', 'GUILD_MEMBER', 'MESSAGE', 'REACTION'],
-			ownerID: config.owner
-		});
-		this.config = config;
-		this.db = new Client({ secret: this.config.faunaDB.secret });
-	}
 
 	private async _init(): Promise<void> {
 		this.commandHandler.useListenerHandler(this.listenerHandler);
