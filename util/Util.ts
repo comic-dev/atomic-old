@@ -129,6 +129,7 @@ export abstract class Util {
 	}
 
 	public static search(query: string, modules: Collection<string, Command>) {
+		if (!query) return null;
 		try {
 			const commands = modules.map((cmd) => {
 				return {

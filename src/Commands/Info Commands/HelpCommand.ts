@@ -45,7 +45,6 @@ export default class HelpCommand extends Command {
 		let SearchCollector: MessageCollector;
 		const prefix = await (this.handler.prefix as PrefixSupplier)(message);
 		if (!command || command === null) {
-			Util.search('p', this.handler.modules);
 			const Home: MessageEmbed = new MessageEmbed()
 				.setTitle('Atomic Help | Home')
 				.addFields([
