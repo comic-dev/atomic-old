@@ -129,41 +129,45 @@ export abstract class Util {
 	}
 
 	public static search(query: string, modules: Collection<string, Command>) {
-		const commands = modules.map((cmd) => {
-			return {
-				...cmd,
-				aliases: cmd.aliases.filter((v) => v !== cmd.id)
-			};
-		});
-		let idRES = commands
-			.map((v) => {
-				return v.id.match(query);
-			})
-			.filter((v) => {
-				return v !== null;
+		try {
+			const commands = modules.map((cmd) => {
+				return {
+					...cmd,
+					aliases: cmd.aliases.filter((v) => v !== cmd.id)
+				};
 			});
-		let aliasRES = commands
-			.map((v) => {
-				return v.aliases.map((v) => {
-					return v.match(query);
+			let idRES = commands
+				.map((v) => {
+					return v.id.match(query);
+				})
+				.filter((v) => {
+					return v !== null;
 				});
-			})
-			.filter((v) => {
-				return !v.includes(null) && v.length > 0 && v !== null;
-			})
-			.flat();
-		const res = [...idRES, ...aliasRES]
-			.sort((a, b) => {
-				return a[0].length - b[0].length;
-			})
-			.sort((a, b) => a['index'] - b['index']);
-		return res[0]
-			? modules.find((c) => {
-					return c.id === res[0]['input'];
-			  }) ||
-					modules.find((c) => {
-						return c.aliases.includes(res[0]['input']);
-					})
-			: null;
+			let aliasRES = commands
+				.map((v) => {
+					return v.aliases.map((v) => {
+						return v.match(query);
+					});
+				})
+				.filter((v) => {
+					return !v.includes(null) && v.length > 0 && v !== null;
+				})
+				.flat();
+			const res = [...idRES, ...aliasRES]
+				.sort((a, b) => {
+					return a[0].length - b[0].length;
+				})
+				.sort((a, b) => a['index'] - b['index']);
+			return res[0]
+				? modules.find((c) => {
+						return c.id === res[0]['input'];
+				  }) ||
+						modules.find((c) => {
+							return c.aliases.includes(res[0]['input']);
+						})
+				: null;
+		} catch (err) {
+			return null;
+		}
 	}
 }
