@@ -28,7 +28,9 @@ export default class HelpCommand extends Command {
 			args: [
 				{
 					id: 'command',
-					type: 'string',
+					type: (message, phrase) => {
+						return Util.search(phrase, this.handler.modules);
+					},
 					default: null,
 					match: 'content'
 				}
@@ -36,9 +38,9 @@ export default class HelpCommand extends Command {
 		});
 	}
 
-	public exec: Runner<{ command: any }> = async (
+	public exec: Runner<{ command: Command }> = async (
 		message: Message,
-		{ command }: { command: any }
+		{ command }: { command: Command }
 	): Promise<any> => {
 		let SearchCollector: MessageCollector;
 		const prefix = await (this.handler.prefix as PrefixSupplier)(message);
@@ -203,7 +205,6 @@ export default class HelpCommand extends Command {
 				}
 			});
 		} else {
-			command = Util.search(command, this.handler.modules);
 			let Embed: MessageEmbed = new MessageEmbed()
 				.setTitle('Atomic Help | Command Result')
 				.addField(
