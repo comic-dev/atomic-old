@@ -154,7 +154,7 @@ export default class HelpCommand extends Command {
 									message.author.displayAvatarURL({ dynamic: true })
 								)
 								.setTimestamp();
-							if (!res?.id) {
+							if (!res) {
 								Result.setDescription('No commands or aliases have been found');
 								setTimeout(() => {
 									SearchCollector.stop('NONE');
