@@ -4,6 +4,7 @@ import {
 	ListenerHandler,
 	InhibitorHandler
 } from 'discord-akairo';
+import { Client } from 'faunadb';
 import Admin from 'firebase-admin';
 import 'reflect-metadata';
 declare module 'discord-akairo' {
@@ -11,6 +12,7 @@ declare module 'discord-akairo' {
 		commandHandler: CommandHandler;
 		listenerHandler: ListenerHandler;
 		inhibitorHandler: InhibitorHandler;
+		db: Client;
 	}
 }
 
