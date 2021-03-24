@@ -148,7 +148,12 @@ export default class HelpCommand extends Command {
 							let res = Util.search(m.content, this.handler.modules);
 							const Result: MessageEmbed = new MessageEmbed()
 								.setTitle('Search Results')
-								.setColor('RANDOM');
+								.setColor('RANDOM')
+								.setFooter(
+									`Requested by: ${message.author.tag}`,
+									message.author.displayAvatarURL({ dynamic: true })
+								)
+								.setTimestamp();
 							if (!res?.id) {
 								Result.setDescription('No commands or aliases have been found');
 								setTimeout(() => {
@@ -221,7 +226,10 @@ export default class HelpCommand extends Command {
       ${command.ownerOnly ? '**Developer Only!**' : ''}`
 				)
 				.setColor('RANDOM')
-				.setFooter(`Requested by: ${message.author.tag}`)
+				.setFooter(
+					`Requested by: ${message.author.tag}`,
+					message.author.displayAvatarURL({ dynamic: true })
+				)
 				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
 				.setTimestamp();
 			message.channel.send(Embed);
