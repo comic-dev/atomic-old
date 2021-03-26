@@ -12,7 +12,7 @@ export default class CommandBlockedListener extends Listener {
 	public async exec(message: Message, command: Command, reason: string) {
 		switch (reason) {
 			case 'owner':
-				message.channel
+				message.util
 					.send(
 						new MessageEmbed()
 							.setTitle('Blocked')

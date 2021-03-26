@@ -139,7 +139,7 @@ export default class HelpCommand extends Command {
 						);
 						SearchCollector.on('collect', (m: Message) => {
 							if (m.content.toLowerCase() === 'cancel') {
-								message.channel.send(
+								message.util.send(
 									new MessageEmbed().setTitle('Cancelling').setColor('RANDOM')
 								);
 								SearchCollector.stop('CANCELED');
@@ -232,7 +232,7 @@ export default class HelpCommand extends Command {
 				)
 				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
 				.setTimestamp();
-			message.channel.send(Embed);
+			message.util.send(Embed);
 		}
 	};
 }

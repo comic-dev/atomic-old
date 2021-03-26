@@ -117,6 +117,6 @@ export default class ServerInfoCommand extends Command {
 		}`
 			);
 
-		message.channel.send(Embed);
+		message.util.send(Embed);
 	};
 }

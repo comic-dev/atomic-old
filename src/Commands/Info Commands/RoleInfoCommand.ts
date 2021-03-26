@@ -69,6 +69,6 @@ export default class RoleInfo extends Command {
 		**❯** Bot Role: ${managed ? 'Yes' : 'No'}`
 			)
 			.setColor(hexColor);
-		message.channel.send(Embed);
+		message.util.send(Embed);
 	};
 }

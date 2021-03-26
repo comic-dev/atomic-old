@@ -124,6 +124,6 @@ export default class UserInfoCommand extends Command {
         **❯** Hoist Role: ${roles.hoist ?? 'None'}`
 			}
 		);
-		message.channel.send(Info);
+		message.util.send(Info);
 	};
 }

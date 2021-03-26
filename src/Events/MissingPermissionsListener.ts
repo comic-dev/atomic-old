@@ -18,7 +18,7 @@ export default class MissingPermissionsListener extends Listener {
 		missing: PermissionString[]
 	) {
 		if (type === 'client') {
-			message.channel
+			message.util
 				.send(
 					new MessageEmbed()
 						.setTitle('Command Blocked')
@@ -41,7 +41,7 @@ export default class MissingPermissionsListener extends Listener {
 					}, 3000);
 				});
 		} else if (type === 'user') {
-			message.channel
+			message.util
 				.send(
 					new MessageEmbed()
 						.setTitle('Command Blocked')
