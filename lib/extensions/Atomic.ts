@@ -37,8 +37,8 @@ export class Atomic extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', '..', 'src', 'Commands'),
-		prefix: (message: Message) => {
-			return Prefix(message, this);
+		prefix: async (message: Message) => {
+			return await Prefix(message, this);
 		},
 		allowMention: true,
 		handleEdits: true,
