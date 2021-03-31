@@ -1,5 +1,6 @@
 import { Command } from '@atomic/lib/extensions/Command';
 import { Runner } from '@atomic/lib/Runner';
+import { Flag } from 'discord-akairo';
 import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
 import { Exists, Get, If, Index, Match, Select } from 'faunadb';
@@ -18,6 +19,7 @@ export default class PrefixCommand extends Command {
 				['prefix-reset', 'reset', 'remove']
 			]
 		};
+		Flag.continue(method);
 	}
 
 	public exec: Runner<null> = async (message: Message) => {
