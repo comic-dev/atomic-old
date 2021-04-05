@@ -3,7 +3,6 @@ import {
 	CommandOptions as AkairoCommandOptions
 } from 'discord-akairo';
 import { Atomic } from '@atomic/lib/extensions/Atomic';
-import { Runner } from '@atomic/lib/Runner';
 import { Message } from 'discord.js';
 export class Command extends AkairoCommand {
 	public constructor(id: string, options?: CommandOptions) {
