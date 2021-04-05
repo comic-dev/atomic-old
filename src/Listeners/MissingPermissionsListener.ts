@@ -1,5 +1,6 @@
-import { Listener, Command } from 'discord-akairo';
 import { Message, PermissionString, MessageEmbed } from 'discord.js';
+import { Command } from '@atomic/lib/extensions/Command';
+import { Listener } from '@atomic/lib/extensions/Listener';
 import { Util } from '@atomic/util/Util';
 
 export default class MissingPermissionsListener extends Listener {

@@ -1,6 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runner';
 import { Util } from '@atomic/util/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
@@ -29,10 +28,7 @@ export default class RoleInfo extends Command {
 			]
 		});
 	}
-	public exec: Runner<{ role: Role }> = async (
-		message: Message,
-		{ role }: { role: Role }
-	): Promise<any> => {
+	public async exe(message: Message, { role }: { role: Role }): Promise<any> {
 		const {
 			name,
 			id,
@@ -70,5 +66,5 @@ export default class RoleInfo extends Command {
 			)
 			.setColor(hexColor);
 		message.util.send(Embed);
-	};
+	}
 }

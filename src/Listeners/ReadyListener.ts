@@ -1,4 +1,4 @@
-import { Listener } from 'discord-akairo';
+import { Listener } from '@atomic/lib/extensions/Listener';
 export default class ReadyListener extends Listener {
 	public constructor() {
 		super('ready', {

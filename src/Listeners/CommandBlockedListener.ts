@@ -1,5 +1,6 @@
-import { Command, Listener } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
+import { Command } from '@atomic/lib/extensions/Command';
+import { Listener } from '@atomic/lib/extensions/Listener';
 export default class CommandBlockedListener extends Listener {
 	public constructor() {
 		super('commandBlocked', {
@@ -10,6 +11,7 @@ export default class CommandBlockedListener extends Listener {
 	}
 
 	public async exec(message: Message, command: Command, reason: string) {
+		console.log(reason);
 		switch (reason) {
 			case 'owner':
 				message.util

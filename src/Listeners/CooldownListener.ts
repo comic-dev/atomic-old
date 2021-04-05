@@ -1,5 +1,6 @@
-import { Command, Listener } from 'discord-akairo';
 import { Message, MessageEmbed } from 'discord.js';
+import { Command } from '@atomic/lib/extensions/Command';
+import { Listener } from '@atomic/lib/extensions/Listener';
 export default class CooldownListener extends Listener {
 	public constructor() {
 		super('cooldown', {

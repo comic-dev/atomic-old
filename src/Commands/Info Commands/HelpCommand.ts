@@ -1,7 +1,6 @@
 import { stripIndents } from 'common-tags';
-import { Category, PrefixSupplier, Argument } from 'discord-akairo';
+import { Category, PrefixSupplier } from 'discord-akairo';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runner';
 import { Util } from '@atomic/util/Util';
 import {
 	Collection,
@@ -38,10 +37,10 @@ export default class HelpCommand extends Command {
 		});
 	}
 
-	public exec: Runner<{ command: Command }> = async (
+	public async exec(
 		message: Message,
 		{ command }: { command: Command }
-	): Promise<any> => {
+	): Promise<any> {
 		let SearchCollector: MessageCollector;
 		const prefix = await (this.handler.prefix as PrefixSupplier)(message);
 		if (!command || command === null) {
@@ -234,5 +233,5 @@ export default class HelpCommand extends Command {
 				.setTimestamp();
 			message.util.send(Embed);
 		}
-	};
+	}
 }

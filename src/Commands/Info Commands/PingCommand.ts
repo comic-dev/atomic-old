@@ -1,6 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runner';
 export default class PingCommand extends Command {
 	public constructor() {
 		super('ping', {
@@ -15,7 +14,7 @@ export default class PingCommand extends Command {
 		});
 	}
 
-	public exec: Runner<null> = async (message: Message): Promise<any> => {
+	public async exec(message: Message): Promise<any> {
 		const msg: Message = await message.util.send('Pinging...');
 
 		await msg.edit('', {
@@ -35,5 +34,5 @@ export default class PingCommand extends Command {
 				.setTimestamp()
 				.setColor('RANDOM')
 		});
-	};
+	}
 }

@@ -1,5 +1,4 @@
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runner';
 import { Flag } from 'discord-akairo';
 import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
@@ -22,7 +21,7 @@ export default class PrefixCommand extends Command {
 		Flag.continue(method);
 	}
 
-	public exec: Runner<null> = async (message: Message) => {
+	public async exec(message: Message): Promise<any> {
 		message.util.send(
 			new MessageEmbed().setDescription(
 				`The current prefix for **${
@@ -42,5 +41,5 @@ export default class PrefixCommand extends Command {
 				)}\``
 			)
 		);
-	};
+	}
 }

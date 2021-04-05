@@ -76,6 +76,7 @@ export class Atomic extends AkairoClient {
 
 		this.commandHandler.loadAll();
 		this.listenerHandler.loadAll();
+		this.inhibitorHandler.loadAll();
 	}
 
 	public boot() {

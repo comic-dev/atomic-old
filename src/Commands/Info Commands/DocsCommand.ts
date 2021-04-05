@@ -1,6 +1,5 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
 import { Command } from '@atomic/lib/extensions/Command';
-import { Runner } from '@atomic/lib/Runner';
 import Axios, { AxiosResponse } from 'axios';
 export default class DocsCommand extends Command {
 	public constructor() {
@@ -48,16 +47,16 @@ export default class DocsCommand extends Command {
 		});
 	}
 
-	public exec: Runner<{ query: string; proj: string }> = async (
+	public async exec(
 		message: Message,
 		{ query, proj }: { query: string; proj: string }
-	): Promise<any> => {
+	): Promise<any> {
 		if (!query) return;
-		const res: AxiosResponse<any> = await Axios.get(
+		const res: AxiosResponse<object> = await Axios.get(
 			`https://djsdocs.sorta.moe/v2/embed?src=${proj}&q=${encodeURIComponent(
 				query
 			)}`
 		);
 		message.util.send({ embed: res.data });
-	};
+	}
 }
