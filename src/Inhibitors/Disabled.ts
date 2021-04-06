@@ -1,5 +1,5 @@
-import { Command } from '@atomic/lib/extensions/Command';
-import { Inhibitor } from '@atomic/lib/extensions/Inhibitor';
+import { Command } from 'discord-akairo';
+import { Inhibitor } from 'discord-akairo';
 import { Message } from 'discord.js';
 import {
 	If,

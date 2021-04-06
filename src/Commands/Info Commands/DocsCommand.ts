@@ -1,5 +1,5 @@
 import { Message } from 'discord.js';
-import { Command } from '@atomic/lib/extensions/Command';
+import { Command } from 'discord-akairo';
 import Axios, { AxiosResponse } from 'axios';
 export default class DocsCommand extends Command {
 	public constructor() {

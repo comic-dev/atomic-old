@@ -1,6 +1,6 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '@atomic/lib/extensions/Command';
-import { Listener } from '@atomic/lib/extensions/Listener';
+import { Command } from 'discord-akairo';
+import { Listener } from 'discord-akairo';
 export default class CommandBlockedListener extends Listener {
 	public constructor() {
 		super('commandBlocked', {

@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '@atomic/lib/extensions/Command';
+import { Command } from 'discord-akairo';
 export default class PingCommand extends Command {
 	public constructor() {
 		super('ping', {

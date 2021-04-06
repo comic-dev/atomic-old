@@ -5,11 +5,20 @@ import {
 	InhibitorHandler
 } from 'discord-akairo';
 import { Message, Intents } from 'discord.js';
-import { Client } from 'faunadb';
+import {
+	Client,
+	Collection,
+	Create,
+	Exists,
+	Get,
+	If,
+	Index,
+	Match,
+	Select
+} from 'faunadb';
 import { join } from 'path';
 import consola, { Consola } from 'consola';
 import { Config } from '@atomic/config/Declaration';
-import { Prefix } from '@atomic/config/Prefix';
 export class Atomic extends AkairoClient {
 	public logger: Consola = consola;
 	public config: Config;
@@ -37,8 +46,27 @@ export class Atomic extends AkairoClient {
 
 	public commandHandler: CommandHandler = new CommandHandler(this, {
 		directory: join(__dirname, '..', '..', 'src', 'Commands'),
-		prefix: async (message: Message) => {
-			return await Prefix(message, this);
+		prefix: async (msg: Message) => {
+			{
+				return await this.db.query<string>(
+					If(
+						Exists(Match(Index('guilds_by_id'), msg.guild.id)),
+						Select(
+							'prefix',
+							Select('data', Get(Match(Index('guilds_by_id'), msg.guild.id)))
+						),
+						Select(
+							'prefix',
+							Select(
+								'data',
+								Create(Collection('guilds'), {
+									data: { guild: msg.guild.id, prefix: this.config.prefix }
+								})
+							)
+						)
+					)
+				);
+			}
 		},
 		allowMention: true,
 		handleEdits: true,

@@ -1,4 +1,4 @@
-import { Command } from '@atomic/lib/extensions/Command';
+import { Command } from 'discord-akairo';
 import { Flag } from 'discord-akairo';
 import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';

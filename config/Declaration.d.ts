@@ -1,3 +1,4 @@
+import { Atomic } from '@atomic/lib/extensions/Atomic';
 import {
 	AkairoClient,
 	CommandHandler,
@@ -12,7 +13,13 @@ declare module 'discord-akairo' {
 		commandHandler: CommandHandler;
 		listenerHandler: ListenerHandler;
 		inhibitorHandler: InhibitorHandler;
+		logger: Consola = consola;
+		config: Config;
 		db: Client;
+	}
+
+	interface Command {
+		description: CommandDescription;
 	}
 }
 
@@ -21,4 +28,10 @@ export interface Config {
 	owner: string;
 	prefix: string;
 	faunaDB: { secret: string };
+}
+
+interface CommandDescription {
+	content: string;
+	usage: string;
+	examples: string[];
 }

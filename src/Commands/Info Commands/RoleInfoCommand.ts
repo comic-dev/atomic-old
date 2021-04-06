@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from 'discord.js';
-import { Command } from '@atomic/lib/extensions/Command';
+import { Command } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
