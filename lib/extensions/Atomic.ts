@@ -37,7 +37,7 @@ export class Atomic extends AkairoClient {
 	}
 
 	public listenerHandler: ListenerHandler = new ListenerHandler(this, {
-		directory: join(__dirname, '..', '..', 'src', 'Events')
+		directory: join(__dirname, '..', '..', 'src', 'Listeners')
 	});
 
 	public inhibitorHandler: InhibitorHandler = new InhibitorHandler(this, {
