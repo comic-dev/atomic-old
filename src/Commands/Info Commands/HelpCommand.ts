@@ -77,7 +77,11 @@ export default class HelpCommand extends Command {
 				.setDescription(
 					`View all commands and their categories below\nFor further info about a specific command, use \`${prefix}help <Command>\``
 				)
-				.setColor('RANDOM');
+				.setColor('RANDOM')
+				.setFooter(
+					`Requested by: ${message.author.tag} | Current prefix: ${prefix}`
+				)
+				.setTimestamp();
 			this.handler.categories.each(
 				(c: Category<string, Command>, s: string) => {
 					Commands.addField(

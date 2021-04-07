@@ -1,9 +1,8 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { Message, MessageEmbed, Role } from 'discord.js';
 import { Command } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 import { stripIndents } from 'common-tags';
 import * as PrettyMS from 'pretty-ms';
-import { Role } from 'discord.js';
 export default class RoleInfo extends Command {
 	public constructor() {
 		super('roleinfo', {

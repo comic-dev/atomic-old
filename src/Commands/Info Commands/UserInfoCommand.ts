@@ -1,6 +1,5 @@
 import { stripIndents } from 'common-tags';
-import { Argument } from 'discord-akairo';
-import { Command } from 'discord-akairo';
+import { Command, Argument } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 import { GuildMember, Message, MessageEmbed } from 'discord.js';
 import * as PrettyMS from 'pretty-ms';

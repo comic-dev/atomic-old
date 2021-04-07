@@ -1,11 +1,10 @@
-import { AkairoClient } from 'discord-akairo';
 import { Command } from 'discord-akairo';
-import { Collection } from 'discord.js';
 import {
 	PermissionString,
 	MessageEmbed,
 	MessageEmbedOptions,
-	Message
+	Message,
+	Collection
 } from 'discord.js';
 
 enum Badges {
