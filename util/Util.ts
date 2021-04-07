@@ -158,7 +158,9 @@ export abstract class Util {
 				.sort((a, b) => {
 					return a[0].length - b[0].length;
 				})
-				.sort((a, b) => a['index'] - b['index']);
+				.sort((a, b) => {
+					return a['index'] - b['index'];
+				});
 			return res[0]
 				? modules.find((c) => {
 						return c.id === res[0]['input'];

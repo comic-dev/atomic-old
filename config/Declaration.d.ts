@@ -17,10 +17,6 @@ declare module 'discord-akairo' {
 		config: Config;
 		db: Client;
 	}
-
-	interface Command {
-		description: CommandDescription;
-	}
 }
 
 export interface Config {
@@ -28,10 +24,4 @@ export interface Config {
 	owner: string;
 	prefix: string;
 	faunaDB: { secret: string };
-}
-
-interface CommandDescription {
-	content: string;
-	usage: string;
-	examples: string[];
 }
