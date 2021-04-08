@@ -27,7 +27,7 @@ export default class RoleInfo extends Command {
 			]
 		});
 	}
-	public async exe(message: Message, { role }: { role: Role }): Promise<any> {
+	public async exec(message: Message, { role }: { role: Role }): Promise<any> {
 		const {
 			name,
 			id,
