@@ -12,7 +12,6 @@ import {
 	User
 } from 'discord.js';
 import ms from 'ms';
-import { resourceLimits } from 'node:worker_threads';
 export default class HelpCommand extends Command {
 	public constructor() {
 		super('help', {
