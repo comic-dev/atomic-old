@@ -10,7 +10,6 @@ export default class CommandBlockedListener extends Listener {
 	}
 
 	public async exec(message: Message, command: Command, reason: string) {
-		console.log(reason);
 		switch (reason) {
 			case 'owner':
 				message.util

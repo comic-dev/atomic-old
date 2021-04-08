@@ -60,7 +60,11 @@ export class Atomic extends AkairoClient {
 							Select(
 								'data',
 								Create(Collection('guilds'), {
-									data: { guild: msg.guild.id, prefix: this.config.prefix }
+									data: {
+										guild: msg.guild.id,
+										prefix: this.config.prefix,
+										disabled: []
+									}
 								})
 							)
 						)

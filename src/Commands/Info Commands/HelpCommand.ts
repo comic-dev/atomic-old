@@ -12,6 +12,7 @@ import {
 	User
 } from 'discord.js';
 import ms from 'ms';
+import { resourceLimits } from 'node:worker_threads';
 export default class HelpCommand extends Command {
 	public constructor() {
 		super('help', {
@@ -171,17 +172,21 @@ export default class HelpCommand extends Command {
 									res.id,
 									stripIndents`
                 **❯** Name: ${res.id}
-                **❯** Aliases: ${res.aliases.join(', ')}
+                **❯** Aliases: ${res.aliases ? res.aliases.join(', ') : 'None'}
                 **❯** Category: ${res.categoryID}
-                **❯** Description: ${res.description.content}
+                **❯** Description: ${res.description.content ?? 'None'}
                 **❯** Cooldown: ${ms(
 									res.cooldown ?? this.handler.defaultCooldown,
 									{
 										long: true
 									}
 								)}
-                **❯** Usage: ${res.description.usage}
-                **❯** Examples: \n${res.description.examples.join('\n')}
+                **❯** Usage: ${res.description.usage ?? 'None'}
+                **❯** Examples: ${
+									res.description.examples
+										? `\n${res.description.examples.join(', ')}`
+										: 'None'
+								}
                 ${res.ownerOnly ? '**Developer Only!**' : ''}`
 								).setThumbnail(
 									message.author.displayAvatarURL({ dynamic: true })
@@ -218,14 +223,18 @@ export default class HelpCommand extends Command {
 					command.id,
 					stripIndents`
       **❯** Name: ${command.id}
-      **❯** Aliases: ${command.aliases.join(', ')}
+      **❯** Aliases: ${command.aliases ? command.aliases.join(', ') : 'None'}
       **❯** Category: ${command.categoryID}
-      **❯** Description: ${command.description.content}
+      **❯** Description: ${command.description.content ?? 'None'}
       **❯** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
 				long: true
 			})}
-      **❯** Usage: ${command.description.usage}
-      **❯** Examples: \n${command.description.examples.join('\n')}
+      **❯** Usage: ${command.description.usage ?? 'None'}
+      **❯** Examples: ${
+				command.description.examples
+					? `\n${command.description.examples.join(', ')}`
+					: 'None'
+			}
       ${command.ownerOnly ? '**Developer Only!**' : ''}`
 				)
 				.setColor('RANDOM')
