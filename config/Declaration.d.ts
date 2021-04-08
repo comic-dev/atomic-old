@@ -1,4 +1,5 @@
 import { Atomic } from '@atomic/lib/extensions/Atomic';
+import { Consola } from 'consola';
 import {
 	AkairoClient,
 	CommandHandler,
@@ -11,7 +12,7 @@ declare module 'discord-akairo' {
 		commandHandler: CommandHandler;
 		listenerHandler: ListenerHandler;
 		inhibitorHandler: InhibitorHandler;
-		logger: Consola = consola;
+		logger: Consola;
 		config: Config;
 		db: Client;
 	}
