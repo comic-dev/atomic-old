@@ -6,7 +6,7 @@ export default class PrefixCommand extends Command {
 	public constructor() {
 		super('prefix', {
 			aliases: ['prefix', 'pr'],
-			category: 'Information'
+			category: 'Configuration'
 		});
 	}
 
@@ -17,7 +17,7 @@ export default class PrefixCommand extends Command {
 				['prefix-reset', 'reset', 'remove']
 			]
 		};
-		Flag.continue(method);
+		return Flag.continue(method);
 	}
 
 	public async exec(message: Message): Promise<any> {

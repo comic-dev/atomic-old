@@ -160,6 +160,7 @@ export abstract class Util {
 				.sort((a, b) => {
 					return a['index'] - b['index'];
 				});
+			if (res[0]['input'].includes('-')) return null;
 			return res[0]
 				? modules.find((c) => {
 						return c.id === res[0]['input'];
