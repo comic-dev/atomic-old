@@ -17,7 +17,7 @@ export default class PrefixCommand extends Command {
 				['prefix-reset', 'reset', 'remove']
 			],
 			otherwise: async (message: Message) =>
-				new MessageEmbed().setDescription(
+				this.client.embed(message, {}).setDescription(
 					`The current prefix for **${
 						message.guild.name
 					}** is \`${await this.client.db.query(

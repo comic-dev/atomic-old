@@ -118,8 +118,8 @@ export class Atomic extends AkairoClient {
 		return this;
 	}
 
-	public embed(msg: Message): MessageEmbed {
-		return new MessageEmbed()
+	public embed(msg: Message, data: object): MessageEmbed {
+		return new MessageEmbed(data)
 			.setFooter(
 				`Requested by: ${msg.author.tag}`,
 				msg.author.displayAvatarURL({ dynamic: true })
