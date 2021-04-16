@@ -6,6 +6,7 @@ import {
 	ListenerHandler,
 	InhibitorHandler
 } from 'discord-akairo';
+import { MessageEmbed, Message } from 'discord.js';
 import { Client } from 'faunadb';
 declare module 'discord-akairo' {
 	interface AkairoClient {
@@ -15,6 +16,7 @@ declare module 'discord-akairo' {
 		logger: Consola;
 		config: Config;
 		db: Client;
+		embed(msg: Message, data): MessageEmbed;
 	}
 }
 

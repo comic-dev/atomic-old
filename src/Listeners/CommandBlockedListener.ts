@@ -14,7 +14,8 @@ export default class CommandBlockedListener extends Listener {
 			case 'owner':
 				message.util
 					.send(
-						new MessageEmbed()
+						this.client
+							.embed(message, {})
 							.setTitle('Blocked')
 							.setDescription(`The ${command.id} command is owner only.`)
 					)

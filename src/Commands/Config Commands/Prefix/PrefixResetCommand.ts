@@ -20,9 +20,11 @@ export default class PrefixResetCommand extends Command {
 			)
 		);
 		message.util.send(
-			new MessageEmbed().setDescription(
-				`The prefix for **${message.guild.name}** has been reset to \`${this.client.config.prefix}\``
-			)
+			this.client
+				.embed(message, {})
+				.setDescription(
+					`The prefix for **${message.guild.name}** has been reset to \`${this.client.config.prefix}\``
+				)
 		);
 	}
 }

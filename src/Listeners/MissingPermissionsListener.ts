@@ -20,7 +20,8 @@ export default class MissingPermissionsListener extends Listener {
 		if (type === 'client') {
 			message.util
 				.send(
-					new MessageEmbed()
+					this.client
+						.embed(message, {})
 						.setTitle('Command Blocked')
 						.setDescription(
 							`The \`${
@@ -29,11 +30,6 @@ export default class MissingPermissionsListener extends Listener {
 								missing
 							)}** permission(s)`
 						)
-						.setFooter(
-							message.author.username,
-							message.author.displayAvatarURL({ dynamic: true })
-						)
-						.setTimestamp()
 				)
 				.then((m) => {
 					setTimeout(() => {
@@ -43,7 +39,8 @@ export default class MissingPermissionsListener extends Listener {
 		} else if (type === 'user') {
 			message.util
 				.send(
-					new MessageEmbed()
+					this.client
+						.embed(message, {})
 						.setTitle('Command Blocked')
 						.setDescription(
 							`You're missing the **${Util.normalize(
@@ -52,11 +49,6 @@ export default class MissingPermissionsListener extends Listener {
 								command.id
 							}\` command.`
 						)
-						.setFooter(
-							message.author.username,
-							message.author.displayAvatarURL({ dynamic: true })
-						)
-						.setTimestamp()
 				)
 				.then((m) => {
 					setTimeout(() => {

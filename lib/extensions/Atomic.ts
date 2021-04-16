@@ -19,6 +19,7 @@ import {
 import { join } from 'path';
 import consola, { Consola } from 'consola';
 import { Config } from '@atomic/config/Declaration';
+import { MessageEmbed } from 'discord.js';
 export class Atomic extends AkairoClient {
 	public logger: Consola = consola;
 	public config: Config;
@@ -115,5 +116,14 @@ export class Atomic extends AkairoClient {
 		this._init();
 		this.login(this.config.token);
 		return this;
+	}
+
+	public embed(msg: Message): MessageEmbed {
+		return new MessageEmbed()
+			.setFooter(
+				`Requested by: ${msg.author.tag}`,
+				msg.author.displayAvatarURL({ dynamic: true })
+			)
+			.setTimestamp();
 	}
 }

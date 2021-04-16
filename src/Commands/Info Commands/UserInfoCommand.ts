@@ -51,15 +51,11 @@ export default class UserInfoCommand extends Command {
 			displayName
 		} = member;
 
-		const Info: MessageEmbed = new MessageEmbed()
-			.setTitle(`Info for ${username}`)
+		const Info: MessageEmbed = this.client
+			.embed(message, {})
+			.setTitle(`${username}`)
 			.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
-			.setColor(displayHexColor)
-			.setFooter(
-				`Requested by: ${message.author.tag}`,
-				message.author.displayAvatarURL({ dynamic: true })
-			)
-			.setTimestamp();
+			.setColor(displayHexColor);
 
 		Info.addFields(
 			{
@@ -89,10 +85,10 @@ export default class UserInfoCommand extends Command {
 			{
 				name: 'Member',
 				value: stripIndents`
-        **❯** Nickname: ${displayName}
-        **❯** Joined: ${new Intl.DateTimeFormat('en-US')
-					.format(joinedAt)
-					.replace(/\//g, '-')} (${PrettyMS.default(
+    **❯** Nickname: ${displayName}
+    **❯** Joined: ${new Intl.DateTimeFormat('en-US')
+			.format(joinedAt)
+			.replace(/\//g, '-')} (${PrettyMS.default(
 					Date.now() - Date.parse(joinedAt.toISOString()),
 					{ compact: true, verbose: true }
 				)} ago)

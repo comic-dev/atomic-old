@@ -57,6 +57,6 @@ export default class DocsCommand extends Command {
 				query
 			)}`
 		);
-		message.util.send({ embed: res.data });
+		message.util.send({ embed: this.client.embed(message, res.data) });
 	}
 }

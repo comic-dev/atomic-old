@@ -39,24 +39,17 @@ export default class ServerInfoCommand extends Command {
 			joinedAt
 		} = message.guild;
 		if (!available) return;
-		const Embed: MessageEmbed = new MessageEmbed()
-			.setFooter(
-				`Requested by: ${message.author.tag}`,
-				message.author.displayAvatarURL({ dynamic: true })
-			)
-			.setTimestamp()
-			.addField(
-				`Server info for ${name}`,
-				stripIndents`  
+		const Embed: MessageEmbed = this.client.embed(message, {}).setDescription(
+			stripIndents`  
     **❯** Name: ${name}
     **❯** ID: ${id}
     **❯** Description: ${description ?? 'No description'}
     **❯** Created: ${new Intl.DateTimeFormat('en-US')
 			.format(createdAt)
 			.replace(/\//g, '-')} (${PrettyMS.default(
-					Date.now() - Date.parse(createdAt.toISOString()),
-					{ compact: true, verbose: true }
-				)} ago)
+				Date.now() - Date.parse(createdAt.toISOString()),
+				{ compact: true, verbose: true }
+			)} ago)
     **❯** Members: ${memberCount} / ${maximumMembers}
     **❯** Channels: ${
 			channels.cache.filter((v) => {
@@ -94,12 +87,12 @@ export default class ServerInfoCommand extends Command {
     **❯** Bot Invited: ${new Intl.DateTimeFormat('en-US')
 			.format(joinedAt)
 			.replace(/\//g, '-')} (${PrettyMS.default(
-					Date.now() - Date.parse(joinedAt.toISOString()),
-					{
-						compact: true,
-						verbose: true
-					}
-				)} ago)
+				Date.now() - Date.parse(joinedAt.toISOString()),
+				{
+					compact: true,
+					verbose: true
+				}
+			)} ago)
     
     **❯** AFK Channel: ${
 			afkChannelID ? channels.cache.get(afkChannelID) : 'None'
@@ -114,7 +107,7 @@ export default class ServerInfoCommand extends Command {
 				})
 				.first() ?? 'None'
 		}`
-			);
+		);
 
 		message.util.send(Embed);
 	}

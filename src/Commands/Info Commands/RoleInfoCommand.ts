@@ -40,9 +40,9 @@ export default class RoleInfo extends Command {
 			mentionable,
 			managed
 		} = role;
-		const Embed: MessageEmbed = new MessageEmbed()
-			.addField(
-				`Role info for ${name}`,
+		const Embed: MessageEmbed = this.client
+			.embed(message, {})
+			.setDescription(
 				stripIndents`
 		**❯** Name: ${name}
 		**❯** ID: ${id}

@@ -12,18 +12,14 @@ export default class CooldownListener extends Listener {
 	public async exec(message: Message, command: Command, left: number) {
 		message.util
 			.send(
-				new MessageEmbed()
+				this.client
+					.embed(message, {})
 					.setTitle('Cooldown')
 					.setDescription(
 						`You're on a cooldown for **${(left / 1000).toFixed(
 							1
 						)}** more seconds.`
 					)
-					.setFooter(
-						`Requested by: ${message.author.tag}`,
-						message.author.displayAvatarURL({ dynamic: true })
-					)
-					.setTimestamp()
 			)
 			.then((m) => {
 				setTimeout(() => {

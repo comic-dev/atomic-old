@@ -15,30 +15,26 @@ export default class PrefixCommand extends Command {
 			type: [
 				['prefix-set', 'set', 'apply'],
 				['prefix-reset', 'reset', 'remove']
-			]
+			],
+			otherwise: async (message: Message) =>
+				new MessageEmbed().setDescription(
+					`The current prefix for **${
+						message.guild.name
+					}** is \`${await this.client.db.query(
+						If(
+							Exists(Match(Index('guilds_by_id'), message.guild.id)),
+							Select(
+								'prefix',
+								Select(
+									'data',
+									Get(Match(Index('guilds_by_id'), message.guild.id))
+								)
+							),
+							this.client.config.prefix
+						)
+					)}\``
+				)
 		};
 		return Flag.continue(method);
-	}
-
-	public async exec(message: Message): Promise<any> {
-		message.util.send(
-			new MessageEmbed().setDescription(
-				`The current prefix for **${
-					message.guild.name
-				}** is \`${await this.client.db.query(
-					If(
-						Exists(Match(Index('guilds_by_id'), message.guild.id)),
-						Select(
-							'prefix',
-							Select(
-								'data',
-								Get(Match(Index('guilds_by_id'), message.guild.id))
-							)
-						),
-						this.client.config.prefix
-					)
-				)}\``
-			)
-		);
 	}
 }

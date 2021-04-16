@@ -33,9 +33,11 @@ export default class PrefixSetCommand extends Command {
 			)
 		);
 		message.util.send(
-			new MessageEmbed().setDescription(
-				`The prefix for **${message.guild.name}** has been updated to \`${prefix}\``
-			)
+			this.client
+				.embed(message, {})
+				.setDescription(
+					`The prefix for **${message.guild.name}** has been updated to \`${prefix}\``
+				)
 		);
 	}
 }

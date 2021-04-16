@@ -42,9 +42,12 @@ export default class HelpCommand extends Command {
 		{ command }: { command: Command }
 	): Promise<any> {
 		let SearchCollector: MessageCollector;
-		const prefix = await (this.handler.prefix as PrefixSupplier)(message);
+		const prefix: string = (await (this.handler.prefix as PrefixSupplier)(
+			message
+		)) as string;
 		if (!command || command === null) {
-			const Home: MessageEmbed = new MessageEmbed()
+			const Home: MessageEmbed = this.client
+				.embed(message, {})
 				.setTitle('Atomic Help | Home')
 				.addFields([
 					{
@@ -65,13 +68,7 @@ export default class HelpCommand extends Command {
 					}
 				])
 				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
-				.setColor('RANDOM')
-				.setFooter(
-					`Requested by ${message.author.tag}`,
-					message.author.displayAvatarURL({ dynamic: true })
-				)
-				.setTimestamp();
-
+				.setColor('RANDOM');
 			const Commands: MessageEmbed = new MessageEmbed()
 				.setTitle('Atomic Help | Commands')
 				.setDescription(
@@ -91,12 +88,14 @@ export default class HelpCommand extends Command {
 				}
 			);
 
-			const Search: MessageEmbed = new MessageEmbed()
+			const Search: MessageEmbed = this.client
+				.embed(message, {})
 				.setTitle('Atomic Help | Search')
 				.setDescription('Find commands or aliases by typing a query')
 				.setColor('RANDOM');
 
-			const Customs: MessageEmbed = new MessageEmbed()
+			const Customs: MessageEmbed = this.client
+				.embed(message, {})
 				.setTitle('Under Construction')
 				.setDescription('This feature is currently still being developed.')
 				.setColor('RANDOM');
@@ -143,20 +142,19 @@ export default class HelpCommand extends Command {
 						SearchCollector.on('collect', (m: Message) => {
 							if (m.content.toLowerCase() === 'cancel') {
 								message.util.send(
-									new MessageEmbed().setTitle('Cancelling').setColor('RANDOM')
+									this.client
+										.embed(message, {})
+										.setTitle('Cancelling')
+										.setColor('RANDOM')
 								);
 								SearchCollector.stop('CANCELED');
 								return msg.edit(Home);
 							}
 							let res = Util.search(m.content, this.handler.modules);
-							const Result: MessageEmbed = new MessageEmbed()
+							const Result: MessageEmbed = this.client
+								.embed(message, {})
 								.setTitle('Search Results')
-								.setColor('RANDOM')
-								.setFooter(
-									`Requested by: ${message.author.tag}`,
-									message.author.displayAvatarURL({ dynamic: true })
-								)
-								.setTimestamp();
+								.setColor('RANDOM');
 							if (!res) {
 								Result.setDescription('No commands or aliases have been found');
 								setTimeout(() => {
@@ -188,7 +186,7 @@ export default class HelpCommand extends Command {
 								}
                 ${res.ownerOnly ? '**Developer Only!**' : ''}`
 								).setThumbnail(
-									message.author.displayAvatarURL({ dynamic: true })
+									this.client.user.displayAvatarURL({ dynamic: true })
 								);
 							}
 							SearchCollector.stop('FOUND');
@@ -216,7 +214,8 @@ export default class HelpCommand extends Command {
 				}
 			});
 		} else {
-			let Embed: MessageEmbed = new MessageEmbed()
+			let Embed: MessageEmbed = this.client
+				.embed(message, {})
 				.setTitle('Atomic Help | Command Result')
 				.addField(
 					command.id,
@@ -237,12 +236,7 @@ export default class HelpCommand extends Command {
       ${command.ownerOnly ? '**Developer Only!**' : ''}`
 				)
 				.setColor('RANDOM')
-				.setFooter(
-					`Requested by: ${message.author.tag}`,
-					message.author.displayAvatarURL({ dynamic: true })
-				)
-				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }))
-				.setTimestamp();
+				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }));
 			message.util.send(Embed);
 		}
 	}

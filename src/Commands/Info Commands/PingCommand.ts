@@ -18,21 +18,14 @@ export default class PingCommand extends Command {
 		const msg: Message = await message.util.send('Pinging...');
 
 		await msg.edit('', {
-			embed: new MessageEmbed({
-				title: 'Pong!',
-				description: `<a:loading:768509189517344788> Message Ping: **${Math.floor(
+			embed: this.client.embed(message, {}).setDescription(
+				`<a:loading:768509189517344788> Message Ping: **${Math.floor(
 					msg.createdTimestamp - message.createdTimestamp
 				)}** ms
-        <a:loading:768509189517344788> API Ping: **${Math.round(
+				<a:loading:768509189517344788> API Ping: **${Math.round(
 					this.client.ws.ping
 				)}** ms`.trim()
-			})
-				.setFooter(
-					`Requested by: ${message.author.tag}`,
-					message.author.displayAvatarURL({ dynamic: true })
-				)
-				.setTimestamp()
-				.setColor('RANDOM')
+			)
 		});
 	}
 }
