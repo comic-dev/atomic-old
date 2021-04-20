@@ -153,7 +153,7 @@ export default class HelpCommand extends Command {
 							let res = Util.search(m.content, this.handler.modules);
 							const Result: MessageEmbed = this.client
 								.embed(message, {})
-								.setTitle('Search Results')
+								.setTitle('Atomic Help | Search Results')
 								.setColor('RANDOM');
 							if (!res) {
 								Result.setDescription('No commands or aliases have been found');
@@ -165,8 +165,7 @@ export default class HelpCommand extends Command {
 							}
 							if (res) {
 								Result.setDescription('Found an Command');
-								Result.addField(
-									res.id,
+								Result.setDescription(
 									stripIndents`
                 **❯** Name: ${res.id}
                 **❯** Aliases: ${res.aliases ? res.aliases.join(', ') : 'None'}
@@ -217,8 +216,7 @@ export default class HelpCommand extends Command {
 			let Embed: MessageEmbed = this.client
 				.embed(message, {})
 				.setTitle('Atomic Help | Command Result')
-				.addField(
-					command.id,
+				.setDescription(
 					stripIndents`
       **❯** Name: ${command.id}
       **❯** Aliases: ${command.aliases ? command.aliases.join(', ') : 'None'}

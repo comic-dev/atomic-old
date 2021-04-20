@@ -23,10 +23,10 @@ export default class Disabled extends Inhibitor {
 		return (
 			await this.client.db.query<string[]>(
 				If(
-					Exists(Match(Index('guilds_by_id'), message.guild.id)),
+					Exists(Match(Index('guilds.id'), message.guild.id)),
 					Select(
 						'disabled',
-						Select('data', Get(Match(Index('guilds_by_id'), message.guild.id)))
+						Select('data', Get(Match(Index('guilds.id'), message.guild.id)))
 					),
 					Select(
 						'disabled',

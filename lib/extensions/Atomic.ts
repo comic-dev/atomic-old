@@ -5,17 +5,7 @@ import {
 	InhibitorHandler
 } from 'discord-akairo';
 import { Message, Intents } from 'discord.js';
-import {
-	Client,
-	Collection,
-	Create,
-	Exists,
-	Get,
-	If,
-	Index,
-	Match,
-	Select
-} from 'faunadb';
+import { Call, Client, Function as Fn, Select } from 'faunadb';
 import { join } from 'path';
 import consola, { Consola } from 'consola';
 import { Config } from '@atomic/config/Declaration';
@@ -50,26 +40,7 @@ export class Atomic extends AkairoClient {
 		prefix: async (msg: Message) => {
 			{
 				return await this.db.query<string>(
-					If(
-						Exists(Match(Index('guilds_by_id'), msg.guild.id)),
-						Select(
-							'prefix',
-							Select('data', Get(Match(Index('guilds_by_id'), msg.guild.id)))
-						),
-						Select(
-							'prefix',
-							Select(
-								'data',
-								Create(Collection('guilds'), {
-									data: {
-										guild: msg.guild.id,
-										prefix: this.config.prefix,
-										disabled: []
-									}
-								})
-							)
-						)
-					)
+					Select('prefix', Call(Fn('guild'), msg.guild.id))
 				);
 			}
 		},

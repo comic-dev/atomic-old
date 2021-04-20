@@ -13,7 +13,7 @@ export default class PrefixResetCommand extends Command {
 	public async exec(message: Message): Promise<any> {
 		await this.client.db.query(
 			Update(
-				Select('ref', Get(Match(Index('guilds_by_id'), message.guild.id))),
+				Select('ref', Get(Match(Index('guilds.id'), message.guild.id))),
 				{
 					data: { prefix: this.client.config.prefix }
 				}

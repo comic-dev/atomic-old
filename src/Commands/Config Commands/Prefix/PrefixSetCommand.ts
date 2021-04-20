@@ -25,12 +25,9 @@ export default class PrefixSetCommand extends Command {
 		{ prefix }: { prefix: string }
 	): Promise<any> {
 		await this.client.db.query(
-			Update(
-				Select('ref', Get(Match(Index('guilds_by_id'), message.guild.id))),
-				{
-					data: { prefix: prefix }
-				}
-			)
+			Update(Select('ref', Get(Match(Index('guilds.id'), message.guild.id))), {
+				data: { prefix: prefix }
+			})
 		);
 		message.util.send(
 			this.client

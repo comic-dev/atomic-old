@@ -108,7 +108,9 @@ export default class ServerInfoCommand extends Command {
 				.first() ?? 'None'
 		}`
 		);
-
+		message.guild.icon
+			? Embed.setThumbnail(message.guild.iconURL({ dynamic: true }))
+			: null;
 		message.util.send(Embed);
 	}
 }

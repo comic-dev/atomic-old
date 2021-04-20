@@ -1,12 +1,15 @@
 import { Command, Flag } from 'discord-akairo';
 import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
-import { Exists, Get, If, Index, Match, Select } from 'faunadb';
+import { Call, Function as Fn, Select } from 'faunadb';
 export default class PrefixCommand extends Command {
 	public constructor() {
 		super('prefix', {
 			aliases: ['prefix', 'pr'],
-			category: 'Configuration'
+			category: 'Configuration',
+			description: {
+				content: 'Set or reset the custom prefix for the current guild'
+			}
 		});
 	}
 
@@ -17,23 +20,15 @@ export default class PrefixCommand extends Command {
 				['prefix-reset', 'reset', 'remove']
 			],
 			otherwise: async (message: Message) =>
-				this.client.embed(message, {}).setDescription(
-					`The current prefix for **${
-						message.guild.name
-					}** is \`${await this.client.db.query(
-						If(
-							Exists(Match(Index('guilds_by_id'), message.guild.id)),
-							Select(
-								'prefix',
-								Select(
-									'data',
-									Get(Match(Index('guilds_by_id'), message.guild.id))
-								)
-							),
-							this.client.config.prefix
-						)
-					)}\``
-				)
+				this.client
+					.embed(message, {})
+					.setDescription(
+						`The current prefix for **${
+							message.guild.name
+						}** is \`${await this.client.db.query(
+							Select('prefix', Call(Fn('guild'), message.guild.id))
+						)}\``
+					)
 		};
 		return Flag.continue(method);
 	}
