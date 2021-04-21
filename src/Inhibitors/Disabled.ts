@@ -1,15 +1,6 @@
 import { Command, Inhibitor } from 'discord-akairo';
 import { Message } from 'discord.js';
-import {
-	If,
-	Match,
-	Index,
-	Get,
-	Select,
-	Create,
-	Collection,
-	Exists
-} from 'faunadb';
+import { Select, Call, Function as Fn } from 'faunadb';
 export default class Disabled extends Inhibitor {
 	public constructor() {
 		super('disabled', {
@@ -22,22 +13,7 @@ export default class Disabled extends Inhibitor {
 	public async exec(message: Message, command: Command) {
 		return (
 			await this.client.db.query<string[]>(
-				If(
-					Exists(Match(Index('guilds.id'), message.guild.id)),
-					Select(
-						'disabled',
-						Select('data', Get(Match(Index('guilds.id'), message.guild.id)))
-					),
-					Select(
-						'disabled',
-						Select(
-							'data',
-							Create(Collection('guilds'), {
-								data: { guild: message.guild.id, disabled: [] }
-							})
-						)
-					)
-				)
+				Select('disabled', Call(Fn('guild'), message.guild.id))
 			)
 		).includes(command.id);
 	}
