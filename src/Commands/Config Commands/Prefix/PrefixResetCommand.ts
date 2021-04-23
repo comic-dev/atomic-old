@@ -1,5 +1,4 @@
 import { Command } from 'discord-akairo';
-import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
 import { Get, Index, Match, Select, Update } from 'faunadb';
 export default class PrefixResetCommand extends Command {
@@ -12,12 +11,9 @@ export default class PrefixResetCommand extends Command {
 
 	public async exec(message: Message): Promise<any> {
 		await this.client.db.query(
-			Update(
-				Select('ref', Get(Match(Index('guilds.id'), message.guild.id))),
-				{
-					data: { prefix: this.client.config.prefix }
-				}
-			)
+			Update(Select('ref', Get(Match(Index('guilds.id'), message.guild.id))), {
+				data: { prefix: this.client.config.prefix }
+			})
 		);
 		message.util.send(
 			this.client

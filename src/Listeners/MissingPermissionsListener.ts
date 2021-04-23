@@ -1,4 +1,4 @@
-import { Message, PermissionString, MessageEmbed } from 'discord.js';
+import { Message, PermissionString } from 'discord.js';
 import { Command, Listener } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 

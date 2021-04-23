@@ -1,6 +1,5 @@
 import { stripIndents } from 'common-tags';
-import { Category, PrefixSupplier } from 'discord-akairo';
-import { Command } from 'discord-akairo';
+import { Command, Category, PrefixSupplier } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 import {
 	Collection,

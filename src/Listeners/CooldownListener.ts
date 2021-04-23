@@ -1,4 +1,4 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { Message } from 'discord.js';
 import { Command, Listener } from 'discord-akairo';
 export default class CooldownListener extends Listener {
 	public constructor() {

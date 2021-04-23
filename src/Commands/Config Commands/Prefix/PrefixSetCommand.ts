@@ -1,5 +1,4 @@
 import { Command } from 'discord-akairo';
-import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
 import { Get, Index, Match, Select, Update } from 'faunadb';
 export default class PrefixSetCommand extends Command {

@@ -1,5 +1,4 @@
 import { Command, Flag } from 'discord-akairo';
-import { MessageEmbed } from 'discord.js';
 import { Message } from 'discord.js';
 import { Call, Function as Fn, Select } from 'faunadb';
 export default class PrefixCommand extends Command {
