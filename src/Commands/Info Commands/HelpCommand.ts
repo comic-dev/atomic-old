@@ -1,5 +1,5 @@
 import { stripIndents } from 'common-tags';
-import { Command, Category, PrefixSupplier } from 'discord-akairo';
+import { Command, Category } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 import {
 	Collection,
@@ -11,6 +11,7 @@ import {
 	User
 } from 'discord.js';
 import ms from 'ms';
+import { Call, Function as Fn, Select } from 'faunadb';
 export default class HelpCommand extends Command {
 	public constructor() {
 		super('help', {
@@ -41,9 +42,9 @@ export default class HelpCommand extends Command {
 		{ command }: { command: Command }
 	): Promise<any> {
 		let SearchCollector: MessageCollector;
-		const prefix: string = (await (this.handler.prefix as PrefixSupplier)(
-			message
-		)) as string;
+		const prefix: string = await this.client.db.query(
+			Select('prefix', Call(Fn('guild'), message.guild.id))
+		);
 		if (!command || command === null) {
 			const Home: MessageEmbed = this.client
 				.embed(message, {})
@@ -160,7 +161,8 @@ export default class HelpCommand extends Command {
 									SearchCollector.stop('NONE');
 								}, 3000);
 								msg.edit(Result);
-								return m.delete();
+								m.delete();
+								return SearchCollector.stop();
 							}
 							if (res) {
 								Result.setDescription('Found an Command');
