@@ -1,3 +1,5 @@
+import { stripIndents } from 'common-tags';
+import { AkairoClient } from 'discord-akairo';
 import { Command } from 'discord-akairo';
 import {
 	PermissionString,
@@ -6,6 +8,7 @@ import {
 	Message,
 	Collection
 } from 'discord.js';
+import ms from 'ms';
 
 enum Badges {
 	BRAVERY = '<:bbravery:818083760142417922>',
@@ -127,7 +130,11 @@ export abstract class Util {
 			.setTimestamp();
 	}
 
-	public static search(query: string, modules: Collection<string, Command>) {
+	public static search(
+		query: string,
+		modules: Collection<string, Command>,
+		message: Message
+	) {
 		if (!query) return null;
 		try {
 			const commands = modules.map((cmd) => {
@@ -153,24 +160,56 @@ export abstract class Util {
 					return !v.includes(null) && v.length > 0 && v !== null;
 				})
 				.flat();
-			const res = [...idRES, ...aliasRES]
+			const cmd = [...idRES, ...aliasRES]
 				.sort((a, b) => {
 					return a[0].length - b[0].length;
 				})
 				.sort((a, b) => {
 					return a['index'] - b['index'];
 				});
-			if (res[0]['input'].includes('-')) return null;
-			return res[0]
-				? modules.find((c) => {
-						return c.id === res[0]['input'];
-				  }) ||
-						modules.find((c) => {
-							return c.aliases.includes(res[0]['input']);
+			if (cmd[0]['input'].includes('-')) return null;
+			const r = cmd[0]
+				? modules
+						.filter((v: any) => {
+							return !!v.guild ? v.guild === message.guild.id : true;
+						})
+						.find((c) => {
+							return c.id === cmd[0]['input'];
+						}) ||
+				  modules
+						.filter((v: any) => {
+							return !!v.guild ? v.guild === message.guild.id : true;
+						})
+						.find((c) => {
+							return c.aliases.includes(cmd[0]['input']);
 						})
 				: null;
+			return r;
 		} catch (err) {
 			return null;
 		}
+	}
+
+	public static help(cmd: Command, client: AkairoClient, msg: Message) {
+		return client
+			.embed(msg, {})
+			.setDescription(
+				stripIndents`
+				**❯** Name: ${cmd.id}
+				**❯** Aliases: ${cmd.aliases ? cmd.aliases.join(', ') : 'None'}
+				**❯** Category: ${cmd.categoryID}
+				**❯** Description: ${cmd.description.content ?? 'None'}
+				**❯** Cooldown: ${ms(cmd.cooldown ?? cmd.handler.defaultCooldown, {
+					long: true
+				})}
+				**❯** Usage: ${cmd.description.usage ?? 'None'}
+				**❯** Examples: ${
+					cmd.description.examples
+						? `\n${cmd.description.examples.join(', ')}`
+						: 'None'
+				}
+			${cmd.ownerOnly ? '**Developer Only!**' : ''}`
+			)
+			.setThumbnail(client.user.displayAvatarURL({ dynamic: true }));
 	}
 }

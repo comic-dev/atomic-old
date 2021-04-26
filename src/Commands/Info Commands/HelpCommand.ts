@@ -28,7 +28,7 @@ export default class HelpCommand extends Command {
 				{
 					id: 'command',
 					type: (message, phrase) => {
-						return Util.search(phrase, this.handler.modules);
+						return Util.search(phrase, this.handler.modules, message);
 					},
 					default: null,
 					match: 'content'
@@ -81,9 +81,20 @@ export default class HelpCommand extends Command {
 				.setTimestamp();
 			this.handler.categories.each(
 				(c: Category<string, Command>, s: string) => {
+					if (
+						c.filter((v: any) => {
+							return v?.guild ? v.guild === message.guild.id : true;
+						}).size < 1
+					)
+						return;
 					Commands.addField(
 						`❯ ${s} [${c.size}]`,
-						`\`${c.map((c) => c.id).join('`, `')}\``
+						`\`${c
+							.filter((v: any) => {
+								return v?.guild ? v.guild === message.guild.id : true;
+							})
+							.map((c) => c.id)
+							.join('`, `')}\``
 					);
 				}
 			);
@@ -148,49 +159,34 @@ export default class HelpCommand extends Command {
 										.setColor('RANDOM')
 								);
 								SearchCollector.stop('CANCELED');
-								return msg.edit(Home);
+								return setTimeout(() => {
+									msg.edit(Home);
+								}, 1500);
 							}
-							let res = Util.search(m.content, this.handler.modules);
-							const Result: MessageEmbed = this.client
-								.embed(message, {})
-								.setTitle('Atomic Help | Search Results')
-								.setColor('RANDOM');
+							let res = Util.search(m.content, this.handler.modules, message);
+
 							if (!res) {
-								Result.setDescription('No commands or aliases have been found');
+								const None: MessageEmbed = new MessageEmbed({
+									description:
+										'No commands or aliases have been found.\n\n**Returning to home.**'
+								});
 								setTimeout(() => {
 									SearchCollector.stop('NONE');
+									msg.edit(Home);
 								}, 3000);
-								msg.edit(Result);
+								msg.edit(None);
 								m.delete();
 								return SearchCollector.stop();
 							}
 							if (res) {
-								Result.setDescription('Found an Command');
-								Result.setDescription(
-									stripIndents`
-                **❯** Name: ${res.id}
-                **❯** Aliases: ${res.aliases ? res.aliases.join(', ') : 'None'}
-                **❯** Category: ${res.categoryID}
-                **❯** Description: ${res.description.content ?? 'None'}
-                **❯** Cooldown: ${ms(
-									res.cooldown ?? this.handler.defaultCooldown,
-									{
-										long: true
-									}
-								)}
-                **❯** Usage: ${res.description.usage ?? 'None'}
-                **❯** Examples: ${
-									res.description.examples
-										? `\n${res.description.examples.join(', ')}`
-										: 'None'
-								}
-                ${res.ownerOnly ? '**Developer Only!**' : ''}`
-								).setThumbnail(
-									this.client.user.displayAvatarURL({ dynamic: true })
+								const Result: MessageEmbed = Util.help(
+									res,
+									this.client,
+									message
 								);
+								SearchCollector.stop('FOUND');
+								msg.edit(Result);
 							}
-							SearchCollector.stop('FOUND');
-							msg.edit(Result);
 						});
 						SearchCollector.on(
 							'end',
@@ -214,26 +210,7 @@ export default class HelpCommand extends Command {
 				}
 			});
 		} else {
-			let Embed: MessageEmbed = this.client
-				.embed(message, {})
-				.setTitle('Atomic Help | Command Result')
-				.setDescription(
-					stripIndents`
-      **❯** Name: ${command.id}
-      **❯** Aliases: ${command.aliases ? command.aliases.join(', ') : 'None'}
-      **❯** Category: ${command.categoryID}
-      **❯** Description: ${command.description.content ?? 'None'}
-      **❯** Cooldown: ${ms(command.cooldown ?? this.handler.defaultCooldown, {
-				long: true
-			})}
-      **❯** Usage: ${command.description.usage ?? 'None'}
-      **❯** Examples: ${
-				command.description.examples
-					? `\n${command.description.examples.join(', ')}`
-					: 'None'
-			}
-      ${command.ownerOnly ? '**Developer Only!**' : ''}`
-				)
+			let Embed: MessageEmbed = Util.help(command, this.client, message)
 				.setColor('RANDOM')
 				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }));
 			message.util.send(Embed);
