@@ -1,8 +1,7 @@
-import { stripIndents } from 'common-tags';
 import { Command, Category } from 'discord-akairo';
 import { Util } from '@atomic/util/Util';
 import {
-	Collection,
+	Collection as Col,
 	Message,
 	MessageEmbed,
 	MessageCollector,
@@ -10,8 +9,19 @@ import {
 	MessageReaction,
 	User
 } from 'discord.js';
-import ms from 'ms';
-import { Call, Function as Fn, Select } from 'faunadb';
+import {
+	Call,
+	Function as Fn,
+	Select,
+	Map,
+	Documents,
+	Get,
+	Lambda,
+	Let,
+	Paginate,
+	Var,
+	Collection
+} from 'faunadb';
 export default class HelpCommand extends Command {
 	public constructor() {
 		super('help', {
@@ -107,9 +117,47 @@ export default class HelpCommand extends Command {
 
 			const Customs: MessageEmbed = this.client
 				.embed(message, {})
-				.setTitle('Under Construction')
-				.setDescription('This feature is currently still being developed.')
-				.setColor('RANDOM');
+				.setColor('RANDOM')
+				.setTitle(`**Custom Commands for ${message.guild.name}**`)
+				.setDescription(
+					`\n${(
+						await this.client.db.query<
+							Array<{
+								guild: string;
+								commands: Array<{ id: string; content: string }>;
+							}>
+						>(
+							Select(
+								'data',
+								Map(
+									Paginate(Documents(Collection('guilds'))),
+									Lambda(
+										'g',
+										Let(
+											{ data: Select('data', Get(Var('g'))) },
+											{
+												commands: Select('commands', Var('data')),
+												guild: Select('guild', Var('data'))
+											}
+										)
+									)
+								)
+							)
+						)
+					)
+						.map((v) => {
+							if (v.guild !== message.guild.id) return null;
+							return v.commands.map((v) => {
+								return `\`${v.id}\``;
+							});
+						})
+						.filter((v) => {
+							return v?.filter((v) => {
+								return !!v;
+							});
+						})
+						.join('` `')}`
+				);
 
 			const msg: Message = await message.util.send(Home);
 			try {
@@ -179,21 +227,14 @@ export default class HelpCommand extends Command {
 								return SearchCollector.stop();
 							}
 							if (res) {
-								const Result: MessageEmbed = Util.help(
-									res,
-									this.client,
-									message
-								);
+								const Result: MessageEmbed = Util.help(res, this.client);
 								SearchCollector.stop('FOUND');
 								msg.edit(Result);
 							}
 						});
 						SearchCollector.on(
 							'end',
-							async (
-								collected: Collection<string, Message>,
-								reason: string
-							) => {
+							async (collected: Col<string, Message>, reason: string) => {
 								if (reason !== 'FOUND') {
 									setTimeout(() => {
 										msg.edit(Home);
@@ -210,7 +251,7 @@ export default class HelpCommand extends Command {
 				}
 			});
 		} else {
-			let Embed: MessageEmbed = Util.help(command, this.client, message)
+			let Embed: MessageEmbed = Util.help(command, this.client)
 				.setColor('RANDOM')
 				.setThumbnail(this.client.user.displayAvatarURL({ dynamic: true }));
 			message.util.send(Embed);

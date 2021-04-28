@@ -52,11 +52,17 @@ export default class DocsCommand extends Command {
 		{ query, proj }: { query: string; proj: string }
 	): Promise<any> {
 		if (!query) return;
-		const res: AxiosResponse<object> = await Axios.get(
-			`https://djsdocs.sorta.moe/v2/embed?src=${proj}&q=${encodeURIComponent(
-				query
-			)}`
-		);
-		message.util.send({ embed: this.client.embed(message, res.data) });
+		try {
+			const res: AxiosResponse<object> = await Axios.get(
+				`https://djsdocs.sorta.moe/v2/embed?src=${proj}&q=${encodeURIComponent(
+					query
+				)}`
+			);
+			message.util.send({ embed: this.client.embed(message, res.data) });
+		} catch (err) {
+			message.util.send({
+				embed: this.client.embed(message, { description: 'No results found.' })
+			});
+		}
 	}
 }

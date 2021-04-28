@@ -1,17 +1,17 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { Get, Index, Match, Select, Update } from 'faunadb';
+import { Call, Function as Fn, Select, Update } from 'faunadb';
 export default class PrefixResetCommand extends Command {
 	public constructor() {
 		super('prefix-reset', {
-			cooldown: 5000,
+			cooldown: 10000,
 			category: 'Configuration'
 		});
 	}
 
 	public async exec(message: Message): Promise<any> {
 		await this.client.db.query(
-			Update(Select('ref', Get(Match(Index('guilds.id'), message.guild.id))), {
+			Update(Select('ref', Call(Fn('guild'), message.guild.id)), {
 				data: { prefix: this.client.config.prefix }
 			})
 		);

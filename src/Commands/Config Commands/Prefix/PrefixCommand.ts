@@ -7,7 +7,9 @@ export default class PrefixCommand extends Command {
 			aliases: ['prefix', 'pr'],
 			category: 'Configuration',
 			description: {
-				content: 'Set or reset the custom prefix for the current guild'
+				content: 'Set or reset the custom prefix for the current guild',
+				examples: ['$prefix set ?', '$prefix reset'],
+				subcommands: ['set', 'apply', 'reset', 'remove']
 			}
 		});
 	}
@@ -25,7 +27,10 @@ export default class PrefixCommand extends Command {
 						`The current prefix for **${
 							message.guild.name
 						}** is \`${await this.client.db.query(
-							Select('prefix', Call(Fn('guild'), message.guild.id))
+							Select(
+								'prefix',
+								Select('data', Call(Fn('guild'), message.guild.id))
+							)
 						)}\``
 					)
 		};
