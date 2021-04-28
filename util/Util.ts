@@ -190,23 +190,30 @@ export abstract class Util {
 		}
 	}
 
-	public static help(cmd: Command, client: AkairoClient, msg: Message) {
-		return client
-			.embed(msg, {})
+	public static help(cmd: Command, client: AkairoClient) {
+		return client.util
+			.embed()
 			.setDescription(
 				stripIndents`
-				**❯** Name: ${cmd.id}
-				**❯** Aliases: ${cmd.aliases ? cmd.aliases.join(', ') : 'None'}
-				**❯** Category: ${cmd.categoryID}
-				**❯** Description: ${cmd.description.content ?? 'None'}
-				**❯** Cooldown: ${ms(cmd.cooldown ?? cmd.handler.defaultCooldown, {
+				> **❯** Name: ${cmd.id}
+				> **❯** Aliases: ${cmd.aliases ? cmd.aliases.join(', ') : 'None'}
+				> **❯** Category: ${cmd.categoryID}
+				> **❯** Description: ${cmd.description.content ?? 'None'}
+				> **❯** Cooldown: ${ms(cmd.cooldown ?? cmd.handler.defaultCooldown, {
 					long: true
 				})}
-				**❯** Usage: ${cmd.description.usage ?? 'None'}
-				**❯** Examples: ${
+				> **❯** Usage: ${cmd.description.usage ?? 'None'}
+				> **❯** Examples: ${
 					cmd.description.examples
-						? `\n${cmd.description.examples.join(', ')}`
+						? `\n> \`${cmd.description.examples.join('`\n> `')}\``
 						: 'None'
+				}
+				${
+					cmd.description.subcommands
+						? `> **❯** Subcommands: ${`\n> \`${cmd.description.subcommands.join(
+								'`, `'
+						  )}\``}`
+						: ''
 				}
 			${cmd.ownerOnly ? '**Developer Only!**' : ''}`
 			)
