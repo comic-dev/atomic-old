@@ -40,7 +40,7 @@ export class Atomic extends AkairoClient {
 		prefix: async (msg: Message) => {
 			{
 				return await this.db.query<string>(
-					Select('prefix', Call(Fn('guild'), msg.guild.id))
+					Select('prefix', Select('data', Call(Fn('guild'), msg.guild.id)))
 				);
 			}
 		},
@@ -53,10 +53,10 @@ export class Atomic extends AkairoClient {
 		argumentDefaults: {
 			prompt: {
 				modifyStart: (msg: Message, str: string): string => {
-					return `${str}\n\nType \`cancel\` to cancel the command...`;
+					return `${str}\nType \`cancel\` to cancel the command...`;
 				},
 				modifyRetry: (msg: Message, str: string): string => {
-					return `${str}\n\nType \`cancel\` to cancel the command...`;
+					return `${str}\nType \`cancel\` to cancel the command...`;
 				},
 				timeout: 'You took too long to respond, the command has been cancelled',
 				ended:
