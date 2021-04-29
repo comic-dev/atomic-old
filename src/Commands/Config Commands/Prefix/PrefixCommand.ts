@@ -27,10 +27,7 @@ export default class PrefixCommand extends Command {
 						`The current prefix for **${
 							message.guild.name
 						}** is \`${await this.client.db.query(
-							Select(
-								'prefix',
-								Select('data', Call(Fn('guild'), message.guild.id))
-							)
+							Select('prefix', Call(Fn('guild'), message.guild.id, 'data'))
 						)}\``
 					)
 		};

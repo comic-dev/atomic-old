@@ -1,6 +1,6 @@
 import { Command } from 'discord-akairo';
 import { Message } from 'discord.js';
-import { Function as Fn, Call, Update } from 'faunadb';
+import { Function as Fn, Call, Update, Select } from 'faunadb';
 export default class PrefixSetCommand extends Command {
 	public constructor() {
 		super('prefix-set', {
@@ -24,7 +24,7 @@ export default class PrefixSetCommand extends Command {
 		{ prefix }: { prefix: string }
 	): Promise<any> {
 		await this.client.db.query(
-			Update(Select('ref', Call(Fn('guild'), message.guild.id)), {
+			Update(Call(Fn('guild'), message.guild.id, 'ref'), {
 				data: { prefix: prefix }
 			})
 		);

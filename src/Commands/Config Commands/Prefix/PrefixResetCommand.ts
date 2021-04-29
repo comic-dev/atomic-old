@@ -11,7 +11,7 @@ export default class PrefixResetCommand extends Command {
 
 	public async exec(message: Message): Promise<any> {
 		await this.client.db.query(
-			Update(Select('ref', Call(Fn('guild'), message.guild.id)), {
+			Update(Call(Fn('guild'), message.guild.id, 'ref'), {
 				data: { prefix: this.client.config.prefix }
 			})
 		);
