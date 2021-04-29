@@ -13,7 +13,7 @@ export default class Disabled extends Inhibitor {
 	public async exec(message: Message, command: Command) {
 		return (
 			await this.client.db.query<string[]>(
-				Select('disabled', Call(Fn('guild'), message.guild.id))
+				Select('disabled', Call(Fn('guild'), message.guild.id, 'data'))
 			)
 		).includes(command.id);
 	}
