@@ -10,7 +10,6 @@ export class Tag extends Command {
 			category: 'Custom',
 			channel: 'guild'
 		});
-		this.id = id;
 		this.content = content;
 		this.guild = guild;
 	}

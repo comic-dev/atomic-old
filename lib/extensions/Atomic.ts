@@ -40,7 +40,7 @@ export class Atomic extends AkairoClient {
 		prefix: async (msg: Message) => {
 			{
 				return await this.db.query<string>(
-					Select('prefix', Select('data', Call(Fn('guild'), msg.guild.id)))
+					Select('prefix', Call(Fn('guild'), msg.guild.id, 'data'))
 				);
 			}
 		},
