@@ -53,7 +53,7 @@ export default class HelpCommand extends Command {
 	): Promise<any> {
 		let SearchCollector: MessageCollector;
 		const prefix: string = await this.client.db.query(
-			Select('prefix', Call(Fn('guild'), message.guild.id))
+			Select('prefix', Call(Fn('guild'), [message.guild.id, 'data']))
 		);
 		if (!command || command === null) {
 			const Home: MessageEmbed = this.client
