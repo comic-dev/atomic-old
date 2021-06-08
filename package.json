@@ -5,7 +5,7 @@
   "license": "ISC",
   "repository": "https://github.com/comic-dev",
   "dependencies": {
-    "@types/node": "^15.6.1",
+    "@types/node": "^15.12.2",
     "axios": "^0.21.1",
     "common-tags": "^1.8.0",
     "consola": "^2.15.3",
