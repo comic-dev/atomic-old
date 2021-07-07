@@ -23,7 +23,7 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
-    "@types/common-tags": "^1.8.0",
+    "@types/common-tags": "^1.8.1",
     "@types/ms": "^0.7.31"
   },
   "_moduleAliases": {
