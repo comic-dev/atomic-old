@@ -10,7 +10,7 @@
     "common-tags": "^1.8.0",
     "consola": "^2.15.3",
     "discord-akairo": "^8.1.0",
-    "discord.js": "^12.5.3",
+    "discord.js": "^13.1.0",
     "faunadb": "^4.3.0",
     "module-alias": "^2.2.2",
     "ms": "^2.1.3",
